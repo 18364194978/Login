@@ -17,7 +17,7 @@
         <td>用户名：<input type="text" name="username"/></td>
       </tr>
       <tr>
-        <td>密&nbsp;&nbsp;&nbsp;&nbsp;码：<input type="text" name="password"/></td>
+        <td>密&nbsp;&nbsp;&nbsp;&nbsp;码1：<input type="text" name="password"/></td>
       </tr>
       <tr align="center">
         <td colspan="2"><input type="submit" value="登录" /><input type="reset" value="重填"/><a href = "add.action">注册</a></td>
