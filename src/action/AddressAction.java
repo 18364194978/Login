@@ -46,6 +46,7 @@ public class AddressAction {
         al.setPassword(getPassword());
         address.add(al);
         this.message = "添加成功了哦";
+//        response.getWriter().write("{success:true}");
         return "success";
     }
     public String select(){
