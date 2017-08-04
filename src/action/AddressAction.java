@@ -40,6 +40,7 @@ public class AddressAction {
     public String add()
     {
         Addresslist al = new Addresslist();
+//        Object a = all;
         al.setName(getUsername());
         al.setPassword(getPassword());
         address.add(al);

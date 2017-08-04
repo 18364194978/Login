@@ -19,5 +19,9 @@
             <result name="success">/success.jsp</result>
             <result name="false">/false.jsp</result>
         </action>
+        <action name="addInfo" class="action.AddressAction" method="add">
+            <!--<result name="success">/success.jsp</result>-->
+            <result name="false">/false.jsp</result>
+        </action>
     </package>
 </struts>

@@ -23,6 +23,10 @@
     <script type="text/javascript"src="<%=basePath%>resources/ext-bootstrap.js"></script>
 
     <script type="text/javascript"src="<%=basePath%>resources/ext-theme-classic/build/ext-theme-classic.js"></script>
+    <%--<%@ include file="commen.jsp" %>--%>
+    <%--<jsp:include page="commen.jsp"><!--此处-->--%>
+        <%--<jsp:param name="basePath" value="<%=basePath%>"/>--%>
+    <%--</jsp:include>--%>
 
     <script type="text/javascript"src="<%=basePath%>js/success.js"></script>
 </head>
