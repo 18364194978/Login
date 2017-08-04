@@ -25,6 +25,7 @@ public class AddressAction {
 //    }
     private String username;
     private String password;
+    public String message;
     public String getUsername(){
         return username;
     }
@@ -44,6 +45,7 @@ public class AddressAction {
         al.setName(getUsername());
         al.setPassword(getPassword());
         address.add(al);
+        this.message = "添加成功了哦";
         return "success";
     }
     public String select(){

@@ -17,10 +17,9 @@ Ext.onReady(function () {
             maxLengthText: '长度不能超过100字符',
             xtype: 'textfield',
             anchor: '99%'
-        },
-            {
-                id: 'userpassword',
-                name: 'userpassword',
+        }, {
+                id: 'password',
+                name: 'password',
                 allowBlank: false,
                 fieldLabel: '密码',
                 maxLength: 100,
@@ -28,8 +27,7 @@ Ext.onReady(function () {
                 maxLengthText: '长度不能超过100字符',
                 xtype: 'textfield',
                 anchor: '99%'
-            }
-            ]
+            }]
     });
     var add_win = new Ext.Window({//此处为公共add弹窗
         title:'添加信息',
@@ -49,13 +47,13 @@ Ext.onReady(function () {
             handler:function () {
                 addInfoToData();
                 add_win.hide();
-                Ext.Msg.show({
-                    title:'新增信息',
-                    msg:'添加成功',
-                    // fn:processResult,
-                    icon:Ext.Msg.QUESTION,
-                    buttons:Ext.Msg.YEYESNO
-                });
+                // Ext.Msg.show({
+                //     title:'新增信息',
+                //     msg:'添加成功',
+                //     // fn:processResult,
+                //     icon:Ext.Msg.QUESTION,
+                //     buttons:Ext.Msg.YEYESNO
+                // });
             }
         }]
     });
@@ -66,17 +64,39 @@ Ext.onReady(function () {
                 add_panel.form.findField(param).setValue(' ');
             }
         }
-        add_panel.form.submit({
+        add_panel.form.doAction('submit',{
             url:'addInfo.action',
-            waitTitle:'提示',
-            method:'POST',
-            waitMsg:'正在处理数据，请稍后...',
-            success:function (form,action) {
-                var msg = action.result.msg;
-                form.reset()
-                Ext.MessageBox.alert('提示', msg);
+            method:'post',
+            success:function(form,action){
+                Ext.Msg.show({
+                    title:'新增信息',
+                    msg:'添加成功了o',
+                    // fn:processResult,
+                    icon:Ext.Msg.QUESTION,
+                    buttons:Ext.Msg.YEYESNO
+                });
+            },
+            failure:function(form,action){
+                Ext.Msg.show({
+                    title:'新增信息失败',
+                    msg:'添加失败了哦',
+                    // fn:processResult,
+                    icon:Ext.Msg.QUESTION,
+                    buttons:Ext.Msg.YEYESNO
+                });
             }
-        })
+        });
+        // .form.submit({
+        //     url:'addInfo.action?reqCode=add',
+        //     waitTitle:'提示',
+        //     method:'POST',
+        //     waitMsg:'正在处理数据，请稍后...',
+        //     success:function (form,action) {
+        //         var msg = action.result.msg;
+        //         form.reset()
+        //         Ext.MessageBox.alert('提示', msg);
+        //     }
+        // })
     }
     var viewport = new Ext.Viewport({
         enableTabScroll:true,
