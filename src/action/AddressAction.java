@@ -7,22 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by xie on 2017/7/28.
  */
 public class AddressAction {
-//    private String name;
-//    private String phone;
     @Autowired
     private AddressImpl address;
-//    public void setName(String name){
-//        this.name = name;
-//    }
-//    public void setPhone(String phone){
-//        this.phone= phone;
-//    }
-//    public String getName(){
-//        return name;
-//    }
-//    public String getPhone(){
-//        return phone;
-//    }
     private String username;
     private String password;
     public String message;

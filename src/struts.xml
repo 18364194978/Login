@@ -23,5 +23,9 @@
             <!--<result name="success">/success.jsp</result>-->
             <result name="false">/false.jsp</result>
         </action>
+        <action name="addStudentInfo" class="action.AddStudentInfoAction" method="addStudentInfo">
+            <!--<result name="success">/success.jsp</result>-->
+            <result name="false">/false.jsp</result>
+        </action>
     </package>
 </struts>
