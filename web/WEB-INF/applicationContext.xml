@@ -24,6 +24,7 @@
         <property name="annotatedClasses">
             <list>
                 <value>bean.Addresslist</value>
+                <value>bean.Student</value>
             </list>
         </property>
     </bean>
@@ -31,4 +32,7 @@
     <bean id="address" class="service.AddressImpl">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
+    <!--<bean id="studentInfo" class="service.AddStudentInfoImpl">-->
+        <!--<property name="sessionFactory" ref="sessionFactory"></property>-->
+    <!--</bean>-->
 </beans>

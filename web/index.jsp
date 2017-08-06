@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>登录界面</title>
   </head>
   <body>
   <form action="check.action" method="post">
@@ -20,7 +20,7 @@
         <td>密&nbsp;&nbsp;&nbsp;&nbsp;码1：<input type="text" name="password"/></td>
       </tr>
       <tr align="center">
-        <td colspan="2"><input type="submit" value="登录" /><input type="reset" value="重填"/><a href = "add.action">注册</a></td>
+        <td colspan="2"><input type="submit" value="登录" />&nbsp;&nbsp;&nbsp;<input type="reset" value="重填"/>&nbsp;&nbsp;&nbsp;<a href = "add.action">注册</a></td>
       </tr>
     </table>
   </form>
