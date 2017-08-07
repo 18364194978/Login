@@ -28,11 +28,11 @@
             </list>
         </property>
     </bean>
-    <!--<bean id="sessionFactory2"/>-->
     <bean id="address" class="service.AddressImpl">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
-    <!--<bean id="studentInfo" class="service.AddStudentInfoImpl">-->
-        <!--<property name="sessionFactory" ref="sessionFactory"></property>-->
-    <!--</bean>-->
+    <bean id="studentInfo" class="service.AddStudentInfoImpl">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <!--<bean id="sessionFactory2"/>-->
 </beans>
