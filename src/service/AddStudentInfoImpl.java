@@ -24,5 +24,13 @@ public class AddStudentInfoImpl implements AddStudentInfo{
         tx.commit();
         session.close();
     }
+    public String check(Student student){
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        return "success";
+    }
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
 }

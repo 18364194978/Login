@@ -46,7 +46,7 @@ public Student(int id,String name,String old,String studentnumber,String sex,Str
     }
 
     @Basic
-    @Column(name = "name", nullable = true, length = 64)
+    @Column(name = "name", nullable = true, length = 20)
     public String getName() {
         return name;
     }

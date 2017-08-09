@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class AddStudentInfoAction {
     @Autowired
-    private AddStudentInfoImpl addStudentInfoImpl;
-    private int id;
+    private AddStudentInfoImpl addStudentInfo;
     private String name;
     private String old;
     private String studentnumber;
@@ -80,6 +79,21 @@ public class AddStudentInfoAction {
     public void setNational(String national) {
         this.national = national;
     }
+    public String check(){
+        Student student = new Student();
+        student.setName(getName());
+        student.setOld(getOld());
+        student.setStudentnumber(getStudentnumber());
+        student.setSex(getSex());
+        student.setAddress(getAddress());
+        student.setGrade(getGrade());
+        student.setGradeclass(getGradeclass());
+        student.setStarttime(getStarttime());
+        student.setPhonenum(getPhonenum());
+        student.setNational(getNational());
+        addStudentInfo.check(student);
+        return "success";
+    }
     public String addStudentInfo(){
         Student student = new Student();
         student.setName(getName());
@@ -92,7 +106,10 @@ public class AddStudentInfoAction {
         student.setStarttime(getStarttime());
         student.setPhonenum(getPhonenum());
         student.setNational(getNational());
-        addStudentInfoImpl.add(student);
+        addStudentInfo.add(student);
         return "success";
+    }
+    public void setAddStudentInfo(AddStudentInfoImpl addStudentInfo){
+        this.addStudentInfo = addStudentInfo;
     }
 }
