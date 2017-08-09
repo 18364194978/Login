@@ -31,6 +31,6 @@
     <script type="text/javascript"src="<%=basePath%>js/success.js"></script>
 </head>
 <body>
-<%=basePath%>
+<%--<%=basePath%>--%>
 </body>
 </html>

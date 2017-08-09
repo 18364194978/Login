@@ -8,4 +8,5 @@ import java.util.List;
 public interface AddStudentInfo {
     public void add(Student student);
     public String check(Student student);
+    public List select();
 }

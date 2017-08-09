@@ -29,6 +29,14 @@ public class AddStudentInfoImpl implements AddStudentInfo{
         Transaction tx = session.beginTransaction();
         return "success";
     }
+    public List select(){
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        String sql = "select new Student(S.id,S.name,S.old,S.studentnumber,S.sex,S.address,S.grade,S.gradeclass,S.starttime,S.phonenum,S.national) from Student S";
+        Query query = session.createQuery(sql);
+        List list = query.list();
+        return list;
+    }
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

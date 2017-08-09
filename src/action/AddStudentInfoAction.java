@@ -5,6 +5,9 @@ import com.opensymphony.xwork2.ActionSupport;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/8/6 0006.
  */
@@ -95,21 +98,6 @@ public class AddStudentInfoAction {
     public void setNational(String national) {
         this.national = national;
     }
-    public String check(){
-        Student student = new Student();
-        student.setName(getName());
-        student.setOld(getOld());
-        student.setStudentnumber(getStudentnumber());
-        student.setSex(getSex());
-        student.setAddress(getAddress());
-        student.setGrade(getGrade());
-        student.setGradeclass(getGradeclass());
-        student.setStarttime(getStarttime());
-        student.setPhonenum(getPhonenum());
-        student.setNational(getNational());
-        addStudentInfo.check(student);
-        return "success";
-    }
     public String addStudentInfo(){
         HttpServletResponse response =ServletActionContext.getResponse();
         response.setContentType("text/html;charset=utf-8");
@@ -131,6 +119,19 @@ public class AddStudentInfoAction {
         catch (Exception ex){
             success = false;
             msg = "添加失败";
+        }
+        return null;
+    }
+    public String getStudentInfo(){
+        HttpServletResponse response =ServletActionContext.getResponse();
+        response.setContentType("text/html;charset=utf-8");
+        try {
+            List list = addStudentInfo.select();
+            response.getWriter().write("{success:true,msg:'成功了啊'}");
+//            response.getWriter().write("{success:true,msg:'成功查找到',list:"+list+"}");
+        }
+        catch (Exception ex){
+            System.out.println(ex);
         }
         return null;
     }

@@ -192,7 +192,6 @@ Ext.onReady(function () {
             handler:function () {
                 // addInfoToData();
                 addStudentInfoToData();
-                add_studentlistWin.hide();
             }
         }]
     });
@@ -203,11 +202,16 @@ Ext.onReady(function () {
                 add_studentlist.form.findField(param).setValue(' ');
             }
         }
+            if (!add_studentlist.form.isValid()){
+                Ext.Msg.alert('提示','请填写完整信息后再提交！');
+                return;
+            }
         add_studentlist.form.doAction('submit',{
-            url:'addStudentInfo.action',
+            url:'getStudentInfo.action',
             method:'post',
             success:function(form,action){
                 var resMsg = action.result.msg;
+                add_studentlistWin.hide();
                 Ext.Msg.show({
                     title:'新增信息',
                     msg:'添加成功了o',
