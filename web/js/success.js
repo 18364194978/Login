@@ -207,6 +207,7 @@ Ext.onReady(function () {
             url:'addStudentInfo.action',
             method:'post',
             success:function(form,action){
+                var resMsg = action.result.msg;
                 Ext.Msg.show({
                     title:'新增信息',
                     msg:'添加成功了o',

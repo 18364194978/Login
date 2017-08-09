@@ -27,5 +27,6 @@
             <!--<result name="success">/success.jsp</result>-->
             <result name="false">/false.jsp</result>
         </action>
+        <action name="getStudentInfo" class="action.AddStudentInfoAction" method="getStudentInfo"></action>
     </package>
 </struts>

@@ -2,6 +2,8 @@ package action;
 import service.AddStudentInfoImpl;
 import bean.Student;
 import com.opensymphony.xwork2.ActionSupport;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Created by Administrator on 2017/8/6 0006.
@@ -19,6 +21,20 @@ public class AddStudentInfoAction {
     private String starttime;
     private String phonenum;
     private String national;
+    private boolean success;
+    private String msg = "";
+    public boolean isSuccess(){
+        return success;
+    }
+    public void setSuccess(boolean success){
+        this.success = success;
+    }
+    public String getMsg(){
+        return msg;
+    }
+    public void setMsg(String msg){
+        this.msg = msg;
+    }
     public String getName() {
         return name;
     }
@@ -95,19 +111,28 @@ public class AddStudentInfoAction {
         return "success";
     }
     public String addStudentInfo(){
-        Student student = new Student();
-        student.setName(getName());
-        student.setOld(getOld());
-        student.setStudentnumber(getStudentnumber());
-        student.setSex(getSex());
-        student.setAddress(getAddress());
-        student.setGrade(getGrade());
-        student.setGradeclass(getGradeclass());
-        student.setStarttime(getStarttime());
-        student.setPhonenum(getPhonenum());
-        student.setNational(getNational());
-        addStudentInfo.add(student);
-        return "success";
+        HttpServletResponse response =ServletActionContext.getResponse();
+        response.setContentType("text/html;charset=utf-8");
+        try {
+            Student student = new Student();
+            student.setName(getName());
+            student.setOld(getOld());
+            student.setStudentnumber(getStudentnumber());
+            student.setSex(getSex());
+            student.setAddress(getAddress());
+            student.setGrade(getGrade());
+            student.setGradeclass(getGradeclass());
+            student.setStarttime(getStarttime());
+            student.setPhonenum(getPhonenum());
+            student.setNational(getNational());
+            addStudentInfo.add(student);
+            response.getWriter().write("{success:true,msg:'成功了啊'}");
+        }
+        catch (Exception ex){
+            success = false;
+            msg = "添加失败";
+        }
+        return null;
     }
     public void setAddStudentInfo(AddStudentInfoImpl addStudentInfo){
         this.addStudentInfo = addStudentInfo;
