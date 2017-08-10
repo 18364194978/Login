@@ -146,50 +146,84 @@ Ext.onReady(function () {
             anchor: '99%'
         }]
     });
-    var data = [{
-        factory:'第一家维修公司', date:'2014-05', cost:52492.0, costav:52492.0
-    },{
-        factory:'第二家维修公司', date:'2014-05', cost:760.0, costav:760.0
-    },{
-        factory:'第三家维修公司', date:'2014-05', cost:1807.0, costav:1807.0
-    },{
-        factory:'第一家维修公司', date:'2014-06', cost:4921.0, costav:4921.0
-    },{
-        factory:'第二家维修公司', date:'2014-06', cost:1020.0, costav:1020.0
-    },{
-        factory:'第三家维修公司', date:'2014-06', cost:1637.0, costav:1637.0
-    },{
-        factory:'第一家维修公司', date:'2014-07', cost:48150.0, costav:48150.0
-    },{
-        factory:'第二家维修公司', date:'2014-07', cost:7940.0, costav:7940.0}];
-
     var store = Ext.create('Ext.data.Store', {
-        fields: [{name: 'date'}, {name: 'cost'},{name: 'costav'},{name: 'factory'}],
-        // groupField: 'date',
-        data: data
+        fields:[{name:'address'},{name:'grade'},{name:'gradeclass'},{name:'id'},{name:'name'},{nama:'national'},{name:'old'},{name:'phonenum'},{name:'sex'},{name:'starttime'},{name:'studentnumber'}],
+        groupField: 'id',
+        proxy: {
+            type:'ajax',
+            url : 'getStudentInfo.action',
+            reader:{
+                type:'json',
+                root:'items'
+            }
+        },
+        autoLoad:true
     });
-
+    var columns = Ext.create('Ext.grid.ColumnModel',{
+        columns:[
+            new Ext.grid.RowNumberer({
+                width:40
+            }),
+            {
+                header: '维修时间', dataIndex: 'address',width:100
+            },{
+                header: '维修时间', dataIndex: 'grade',width:100
+            },{
+                header: '维修时间', dataIndex: 'gradeclass',width:100
+            },{
+                header: '维修时间', dataIndex: 'id',width:100
+            },{
+                header: '维修时间', dataIndex: 'name',width:100
+            },{
+                header: '维修时间', dataIndex: 'national',width:100
+            },{
+                header: '维修时间', dataIndex: 'old',width:100
+            },{
+                header: '维修时间', dataIndex: 'phonenum',width:100
+            },{
+                header: '维修费用(元)', dataIndex: 'sex', width:180
+            },{
+                header: '维修厂家', dataIndex: 'starttime',width:120
+            },{
+                header: '总费用', dataIndex: 'studentnumber', width:180
+            }
+        ]
+    });
+    function console() {
+        alert('11111');
+    }
     var grid = Ext.create('Ext.grid.Panel', {
         frame: true,
         height: 800,
         columnLines: true, // 加上表格线
-        // renderTo: Ext.getBody(),
-        columns: [{
-            text: '维修时间', dataIndex: 'date',width:100,
+        store:store,
+        // columns:columns
+        columns: [
+            {
+            text: '维修时间', dataIndex: 'address',width:100,renderer:console()
         },{
-            text: '维修费用(元)', dataIndex: 'cost', width:180,
-            field: { xtype: 'numberfield'},
-            summaryType: 'sum',
+            text: '维修时间', dataIndex: 'grade',width:100
         },{
-            text: '维修厂家', dataIndex: 'factory',width:120,
+            text: '维修时间', dataIndex: 'gradeclass',width:100
         },{
-            text: '总费用', dataIndex: 'costav', width:180,
-            field: {xtype: 'numberfield'},
-            summaryType: 'average',
-        }],
-        store: store
+            text: '维修时间', dataIndex: 'id',width:100
+        },{
+            text: '维修时间', dataIndex: 'name',width:100
+        },{
+            text: '维修时间', dataIndex: 'national',width:100
+        },{
+            text: '维修时间', dataIndex: 'old',width:100
+        },{
+            text: '维修时间', dataIndex: 'phonenum',width:100
+        },{
+            text: '维修费用(元)', dataIndex: 'sex', width:180
+        },{
+            text: '维修厂家', dataIndex: 'starttime',width:120
+        },{
+            text: '总费用', dataIndex: 'studentnumber', width:180
+        }]
+
     });
-    // grid.show();
     var add_win = new Ext.Window({//此处为公共add弹窗
         title:'添加信息',
         layout:'fit',
@@ -371,6 +405,3 @@ Ext.onReady(function () {
         ]
     })
 });
-// function processResult() {
-//     Ext.Msg.alert('结果',btn);
-// }
