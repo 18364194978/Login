@@ -32,5 +32,6 @@
 </head>
 <body>
 <%--<%=basePath%>--%>
+<div id="grid"></div>
 </body>
 </html>

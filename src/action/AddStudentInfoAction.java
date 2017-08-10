@@ -4,8 +4,8 @@ import bean.Student;
 import com.opensymphony.xwork2.ActionSupport;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 
 /**
@@ -124,10 +124,13 @@ public class AddStudentInfoAction {
     }
     public String getStudentInfo(){
         HttpServletResponse response =ServletActionContext.getResponse();
-        response.setContentType("text/html;charset=utf-8");
+//        response.setContentType("text/html;charset=utf-8");
         try {
             List list = addStudentInfo.select();
-            response.getWriter().write("{success:true,msg:'成功了啊'}");
+            JSONArray json = JSONArray.fromObject(list);
+            System.out.println(json);
+            response.getWriter().write(json.toString());
+
 //            response.getWriter().write("{success:true,msg:'成功查找到',list:"+list+"}");
         }
         catch (Exception ex){
