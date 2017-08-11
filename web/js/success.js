@@ -159,6 +159,7 @@ Ext.onReady(function () {
         },
         autoLoad:true
     });
+
     var columns = Ext.create('Ext.grid.ColumnModel',{
         columns:[
             new Ext.grid.RowNumberer({
@@ -339,7 +340,28 @@ Ext.onReady(function () {
         });
     }
     function exit() {
-        window.location='login.jsp';
+        Ext.MessageBox.show({
+            title:'提示',
+            msg:'确认要注销系统，退出登录吗？',
+            width:250,
+            buttons:Ext.MessageBox.YESNO,
+            animEl:Ext.getBody(),
+            icon:Ext.MessageBox.QUESTION,
+            fn:function (btn) {
+                if(btn === 'yes'){
+                    Ext.MessageBox.show({
+                        title:'请稍等',
+                        msg:'正在注销...',
+                        width:300,
+                        wait:true,
+                        waitConfig:{
+                            interval:50
+                        }
+                    });
+                    window.location='login.jsp';
+                }
+            }
+        });
     }
     var viewport = new Ext.Viewport({
         enableTabScroll:true,
@@ -348,16 +370,45 @@ Ext.onReady(function () {
             {
                 region:"north",
                 height:80,
+                split : true,
+                split : true,
+                margins:'10 10 10 10',
                 title:"面板的标题(上部分)",
-                tbar:[
+                items:[
                     {
-                        text:'退出登录',
-                        handler:function () {
-                            exit();
-                        }
+                        xtype:'panel',
+                        border:false,
+                        layout:{
+                            type:'vbox',
+                            align:'right',
+                            padding:'7 3 0 0 '
+                        },
+                        width:'100%',
+                        items:[{
+                            xtype:'fieldcontainer',
+                            layout:'column',
+                            items:[{
+                                xtype:'button',
+                                text:'<span class="hydg_btn">修改密码</span>',
+                                scale:'medium',
+                                id:'11',
+                                margin:'0 5 0 0',
+                                handler:function () {
+                                }
+                            },{
+                                xtype: 'button',
+                                text: '<span class="hydg_btn">退出</span>',
+                                scale: 'medium',
+                                id: 'btnSearchOption',
+                                handler:function () {
+                                    exit();
+                                }
+                            }]
+                        }],
+                        html:'<p>这是一段文字</p>'
                     }
                 ],
-                html:"<h1>新闻后台管理系统</h1>"
+                html:"<div id='closeDiv' style='height: 100%'></div>"
             },
             {
                 region:"west",
@@ -404,6 +455,12 @@ Ext.onReady(function () {
                                 handler:function () {
                                     add_studentlistWin.show();
                                 }
+                            },
+                            {
+                                text:'删除学生',
+                                handler:function () {
+
+                                }
                             }
                             ],
                         items:[grid]
@@ -411,5 +468,8 @@ Ext.onReady(function () {
                 ]
             }
         ]
-    })
+    });
+    // $('#closeBtn').click(function () {
+    //     exit();
+    // });
 });

@@ -21,7 +21,7 @@
     <script type="text/JavaScript"src="<%=basePath%>resources/ext-all.js"></script>
 
     <script type="text/javascript"src="<%=basePath%>resources/ext-bootstrap.js"></script>
-
+    <script type="text/javascript"src="<%=basePath%>resources/jquery.1.11.3.min.js"></script>
     <script type="text/javascript"src="<%=basePath%>resources/ext-theme-classic/build/ext-theme-classic.js"></script>
     <%--<%@ include file="commen.jsp" %>--%>
     <%--<jsp:include page="commen.jsp"><!--此处-->--%>
