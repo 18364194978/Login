@@ -32,11 +32,11 @@
 <body>
 
 <div class="page-container">
-    <h1>登录</h1>
+    <h1>学生信息查询系统</h1>
     <form action="check.action" method="post">
         <input type="text" name="username" class="username" placeholder="用户名">
         <input type="password" name="password" class="password" placeholder="密码">
-        <button type="submit">提交</button>
+        <div><button type="submit">登录</button><button type="reset" style="margin-left: 38px">重填</button></div>
         <%--<p type="reset">重填</p>--%>
         <div style="margin-top: inherit"><a href = "add.action">注册</a></div>
         <div class="error"><span>+</span></div>

@@ -16,7 +16,7 @@
             <result name="false">/false.jsp</result>
         </action>
         <action name="add" class="action.AddressAction" method="select">
-            <result name="success">/success.jsp</result>
+            <result name="success">/false.jsp</result>
             <result name="false">/false.jsp</result>
         </action>
         <action name="addInfo" class="action.AddressAction" method="add">

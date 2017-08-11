@@ -190,7 +190,6 @@ Ext.onReady(function () {
         ]
     });
     function console() {
-        alert('11111');
     }
     var grid = Ext.create('Ext.grid.Panel', {
         frame: true,
@@ -200,27 +199,27 @@ Ext.onReady(function () {
         // columns:columns
         columns: [
             {
-            text: '维修时间', dataIndex: 'address',width:100,renderer:console()
-        },{
-            text: '维修时间', dataIndex: 'grade',width:100
-        },{
-            text: '维修时间', dataIndex: 'gradeclass',width:100
-        },{
-            text: '维修时间', dataIndex: 'id',width:100
-        },{
-            text: '维修时间', dataIndex: 'name',width:100
-        },{
-            text: '维修时间', dataIndex: 'national',width:100
-        },{
-            text: '维修时间', dataIndex: 'old',width:100
-        },{
-            text: '维修时间', dataIndex: 'phonenum',width:100
-        },{
-            text: '维修费用(元)', dataIndex: 'sex', width:180
-        },{
-            text: '维修厂家', dataIndex: 'starttime',width:120
-        },{
-            text: '总费用', dataIndex: 'studentnumber', width:180
+                text: 'ID', dataIndex: 'id',width:100
+            },{
+                text: '姓名', dataIndex: 'name',width:100
+            },{
+                text: '性别', dataIndex: 'sex', width:180
+            },{
+                text: '年龄', dataIndex: 'old',width:100
+            },{
+                text: '学号', dataIndex: 'studentnumber', width:180
+            },{
+                text: '年级', dataIndex: 'grade',width:100
+            },{
+                text: '班级', dataIndex: 'gradeclass',width:100
+            },{
+                header: '籍贯', dataIndex: 'address',width:100,renderer:console()
+            },{
+                text: '电话', dataIndex: 'phonenum',width:100
+            },{
+                text: '民族', dataIndex: 'national',width:100,
+            },{
+                text: '入学时间', dataIndex: 'starttime',width:120
         }]
 
     });
@@ -339,6 +338,9 @@ Ext.onReady(function () {
             }
         });
     }
+    function exit() {
+        window.location='login.jsp';
+    }
     var viewport = new Ext.Viewport({
         enableTabScroll:true,
         layout:"border",//采用border布局
@@ -346,9 +348,15 @@ Ext.onReady(function () {
             {
                 region:"north",
                 height:80,
-
                 title:"面板的标题(上部分)",
-
+                tbar:[
+                    {
+                        text:'退出登录',
+                        handler:function () {
+                            exit();
+                        }
+                    }
+                ],
                 html:"<h1>新闻后台管理系统</h1>"
             },
             {
