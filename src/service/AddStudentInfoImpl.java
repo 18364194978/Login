@@ -25,8 +25,6 @@ public class AddStudentInfoImpl implements AddStudentInfo{
         session.close();
     }
     public String check(Student student){
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
         return "success";
     }
     public List select(){
@@ -35,6 +33,8 @@ public class AddStudentInfoImpl implements AddStudentInfo{
         String sql = "select new Student(S.id,S.name,S.old,S.studentnumber,S.sex,S.address,S.grade,S.gradeclass,S.starttime,S.phonenum,S.national) from Student S";
         Query query = session.createQuery(sql);
         List list = query.list();
+        tx.commit();
+        session.close();
         return list;
     }
     public void setSessionFactory(SessionFactory sessionFactory) {
