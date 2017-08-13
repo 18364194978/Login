@@ -37,6 +37,13 @@ public class AddStudentInfoImpl implements AddStudentInfo{
         session.close();
         return list;
     }
+    public void delete(Student student){
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        session.delete(student);
+        tx.commit();
+        session.close();
+    }
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

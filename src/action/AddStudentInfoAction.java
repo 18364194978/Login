@@ -15,6 +15,7 @@ import java.util.List;
 public class AddStudentInfoAction {
     @Autowired
     private AddStudentInfoImpl addStudentInfo;
+    private int id;
     private String name;
     private String old;
     private String studentnumber;
@@ -27,6 +28,7 @@ public class AddStudentInfoAction {
     private String national;
     private boolean success;
     private String msg = "";
+    private String nul = null;
     public boolean isSuccess(){
         return success;
     }
@@ -39,8 +41,17 @@ public class AddStudentInfoAction {
     public void setMsg(String msg){
         this.msg = msg;
     }
+    public void setId(int id){
+        this.id = id;
+    }
+    public int getId(){
+        return id;
+    }
     public String getName() {
         return name;
+    }
+    public String getNul(){
+        return nul;
     }
     public void setName(String name) {
         this.name = name;
@@ -123,6 +134,62 @@ public class AddStudentInfoAction {
         }
         return null;
     }
+    public String deleteStudent(){
+        HttpServletResponse response =ServletActionContext.getResponse();
+        response.setContentType("text/html;charset=utf-8");
+//        String nams = getName();
+//        String nu = getNul();
+////        nams.toString();
+//        String nulls = "null";
+//        Boolean b = nams.equals(nu);
+        try {
+            Student student = new Student();
+            student.setId(getId());
+//            String name = getName();
+//            String old = getOld();
+//            String studentnumber = getStudentnumber();
+//            String sex = getSex();
+//            String address = getAddress();
+//            String grade = getGrade();
+//            String gradeclass = getGradeclass();
+//            String starttime = getStarttime();
+//            String phonenum = getPhonenum();
+//            Boolean a = name.equals("null");
+//            if(name.equals("null")){
+//                student.setName("");
+//            }
+//            if(old.equals("null")){
+//                student.setOld("");
+//            }
+//            if(studentnumber.equals("null")){
+//                student.setStudentnumber("");
+//            }
+//            if(sex.equals("null")){
+//                student.setSex("");
+//            }
+//            if(address.equals("null")){
+//                student.setAddress("");
+//            }
+//            if(grade.equals("null")){
+//                student.setGrade("");
+//            }
+//            if(gradeclass.equals("null")){
+//                student.setGradeclass("");
+//            }
+//            if(starttime.equals("null")){
+//                student.setStarttime("");
+//            }
+//            if(phonenum.equals("null")){
+//                student.setPhonenum("");
+//            }
+            addStudentInfo.delete(student);
+            response.getWriter().write("{success:true,msg:'成功了啊'}");
+        }catch (Exception ex){
+            success = false;
+            msg = "添加失败";
+        }
+        return null;
+    }
     public String getStudentInfo(){
         HttpServletResponse response =ServletActionContext.getResponse();
         PrintWriter out = null;
@@ -134,7 +201,6 @@ public class AddStudentInfoAction {
             out = response.getWriter();
             out.write(json.toString());
 
-//            response.getWriter().write("{success:true,msg:'成功查找到',list:"+list+"}");
         }
         catch (Exception ex){
             System.out.println(ex);

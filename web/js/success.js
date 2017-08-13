@@ -147,7 +147,7 @@ Ext.onReady(function () {
         }]
     });
     var store = Ext.create('Ext.data.Store', {
-        fields:[{name:'address'},{name:'grade'},{name:'gradeclass'},{name:'id'},{name:'name'},{nama:'national'},{name:'old'},{name:'phonenum'},{name:'sex'},{name:'starttime'},{name:'studentnumber'}],
+        fields:[{name:'address'},{name:'grade'},{name:'gradeclass'},{name:'id'},{name:'name'},{name:'national'},{name:'old'},{name:'phonenum'},{name:'sex'},{name:'starttime'},{name:'studentnumber'}],
         groupField: 'id',
         proxy: {
             type:'ajax',
@@ -192,16 +192,20 @@ Ext.onReady(function () {
     });
     function console() {
     }
+    var sm = Ext.create('Ext.selection.CheckboxModel');
     var grid = Ext.create('Ext.grid.Panel', {
         frame: true,
+        id:'grid',
         height: 800,
         columnLines: true, // 加上表格线
         store:store,
+        selModel:sm,//添加复选框
         // columns:columns
         columns: [
+            new Ext.grid.RowNumberer(),//添加行号
+            //     text: 'ID', dataIndex: 'id',width:100
+            // },
             {
-                text: 'ID', dataIndex: 'id',width:100
-            },{
                 text: '姓名', dataIndex: 'name',width:100
             },{
                 text: '性别', dataIndex: 'sex', width:180
@@ -363,6 +367,63 @@ Ext.onReady(function () {
             }
         });
     }
+    function deleteStudent() {
+        Ext.MessageBox.show({
+            title: '提示',
+            msg: '确认要删除学生信息吗？',
+            width: 250,
+            buttons: Ext.MessageBox.YESNO,
+            animEl: Ext.getBody(),
+            icon: Ext.MessageBox.QUESTION,
+            fn: function (btn) {
+                if (btn === 'yes') {
+                    if(grid.getSelectionModel().hasSelection()){
+                        var records = grid.getSelectionModel().selected.items[0].data.id;
+                        Ext.Ajax.request({//此处通过ajax将id传回bean删除数据
+                            url:'deleteStudentInfo.action',
+                            params:{
+                                id:records
+                            },
+                            success:function(form,action){
+                                var getGrid = Ext.getCmp('grid');
+                                grid.store.reload();
+                                Ext.Msg.show({
+                                    title:'新增信息',
+                                    msg:'删除成功了o',
+                                    // fn:processResult,
+                                    icon:Ext.Msg.QUESTION,
+                                    buttons:Ext.Msg.YEYESNO
+                                });
+                            },
+                            failure:function(form,action){
+                                Ext.Msg.show({
+                                    title:'新增信息失败',
+                                    msg:'删除失败了哦',
+                                    // fn:processResult,
+                                    icon:Ext.Msg.QUESTION,
+                                    buttons:Ext.Msg.YEYESNO
+                                });
+                            }
+                        });
+                        // var mycars = new Array();
+                        // for ( var i = 0; i < records.length; i++) {
+                        //     mycars[i] = records[i].data;
+                        // }
+                        // alert(mycars.length);
+                    }
+                    // Ext.MessageBox.show({
+                    //     title: '请稍等',
+                    //     msg: '正在注销...',
+                    //     width: 300,
+                    //     wait: true,
+                    //     waitConfig: {
+                    //         interval: 50
+                    //     }
+                    // });
+                }
+            }
+        });
+    }
     var viewport = new Ext.Viewport({
         enableTabScroll:true,
         layout:"border",//采用border布局
@@ -459,7 +520,7 @@ Ext.onReady(function () {
                             {
                                 text:'删除学生',
                                 handler:function () {
-
+                                    deleteStudent();
                                 }
                             }
                             ],

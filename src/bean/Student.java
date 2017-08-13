@@ -33,7 +33,7 @@ public Student(int id,String name,String old,String studentnumber,String sex,Str
     this.gradeclass = gradeclass;
     this.starttime = starttime;
     this.phonenum = phonenum;
-    this.name = national;
+    this.national = national;
 }
     @Id
     @Column(name = "id", nullable = false)
