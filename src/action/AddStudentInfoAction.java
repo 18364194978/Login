@@ -146,8 +146,11 @@ public class AddStudentInfoAction {
             Student student = new Student();
             student.setId(getId());
 //            String name = getName();
-//            String old = getOld();
-//            String studentnumber = getStudentnumber();
+            String old = getOld();
+            String a = "a";
+//            String name1 = name.toString();
+//            Boolean b = name1.equals("null");
+            String studentnumber = getStudentnumber();
 //            String sex = getSex();
 //            String address = getAddress();
 //            String grade = getGrade();

@@ -29,6 +29,23 @@ Ext.onReady(function () {
                 anchor: '99%'
             }]
     });
+    var selectStudent = new Ext.FormPanel({
+        name: 'add_panel',
+        bodyStyle: 'padding:10 5 0',
+        defaultType: 'textfield',
+        labelAlign: 'right',
+        labelWidth: 100,
+        frame: true,
+        items: [
+            {
+                id:'name',
+                name:'name',
+                allowBlank:true,
+                fieldLabel:'姓名',
+                anchor:'90%'
+
+            }]
+    });
     var add_studentlist = new Ext.FormPanel({
         name: 'add_panel',
         bodyStyle: 'padding:10 5 0',
@@ -277,6 +294,31 @@ Ext.onReady(function () {
             }
         }]
     });
+    var selectStudentWin = new Ext.Window({
+        title:'查询信息',
+        layout:'fit',
+        closble:true,
+        collapsible:true,
+        width:500,
+        hight:300,
+        items:[selectStudent],
+        modal:true,
+        constrain:true,
+        titleCollapse:true,
+        buttonAlign:'center',
+        buttons:[{
+            text:'确定',
+            handler:function () {
+                // selecStudents();
+            }
+        },
+            {
+                text:'取消',
+                handler:function () {
+                    selectStudentWin.hide();
+                }
+            }]
+    });
     function addStudentInfoToData() {
         var submitValues = add_studentlist.getForm().getValues();
         for(var param in submitValues){
@@ -522,6 +564,13 @@ Ext.onReady(function () {
                                 handler:function () {
                                     deleteStudent();
                                 }
+                            },
+                            {
+                                text:'信息查询',
+                                handler:function () {
+                                    selectStudentWin.show();
+                                }
+
                             }
                             ],
                         items:[grid]
