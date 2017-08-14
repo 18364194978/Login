@@ -426,10 +426,14 @@ Ext.onReady(function () {
                 if (btn === 'yes') {
                     if(grid.getSelectionModel().hasSelection()){
                         var records = grid.getSelectionModel().selected.items[0].data.id;
+                        var selectList = [];
+                        grid.getSelectionModel().selected.items.forEach(function (x) {
+                            selectList.push(x.data.id);
+                        });
                         Ext.Ajax.request({//此处通过ajax将id传回bean删除数据
                             url:'deleteStudentInfo.action',
                             params:{
-                                id:records
+                                selectList:selectList
                             },
                             success:function(form,action){
                                 var getGrid = Ext.getCmp('grid');

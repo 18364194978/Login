@@ -28,7 +28,7 @@ public class AddStudentInfoAction {
     private String national;
     private boolean success;
     private String msg = "";
-    private String nul = null;
+    private List selectList;
     public boolean isSuccess(){
         return success;
     }
@@ -37,6 +37,12 @@ public class AddStudentInfoAction {
     }
     public String getMsg(){
         return msg;
+    }
+    public void setSelectList(List list){
+        this.selectList = list;
+    }
+    public List getSelectList(){
+        return selectList;
     }
     public void setMsg(String msg){
         this.msg = msg;
@@ -49,9 +55,6 @@ public class AddStudentInfoAction {
     }
     public String getName() {
         return name;
-    }
-    public String getNul(){
-        return nul;
     }
     public void setName(String name) {
         this.name = name;
@@ -139,10 +142,12 @@ public class AddStudentInfoAction {
         response.setContentType("text/html;charset=utf-8");
         try {
             Student student = new Student();
-            student.setId(getId());
-//            String name = getName();
-            String old = getOld();
-            addStudentInfo.delete(student);
+            List list = getSelectList();
+            for (int i=0;i<list.size();i++){
+                int ids = Integer.parseInt((String) list.get(i));
+                student.setId(ids);
+                addStudentInfo.delete(student);
+            }
             response.getWriter().write("{success:true,msg:'成功了啊'}");
         }catch (Exception ex){
             success = false;
