@@ -30,7 +30,17 @@ jQuery(function($){
                                  {image : 'logins/img/backgrounds/6.jpg'},
                                  {image : 'logins/img/backgrounds/7.jpg'},
                                  {image : 'logins/img/backgrounds/8.jpg'},
-                                 {image : 'logins/img/backgrounds/9.jpg'}
+                                 {image : 'logins/img/backgrounds/9.jpg'},
+                                 {image : 'logins/img/backgrounds/12.jpg'},
+                                 {image : 'logins/img/backgrounds/13.jpg'},
+                                 {image : 'logins/img/backgrounds/14.jpg'},
+                                 {image : 'logins/img/backgrounds/15.jpg'},
+                                 {image : 'logins/img/backgrounds/16.jpg'},
+                                 {image : 'logins/img/backgrounds/17.jpg'},
+                                 {image : 'logins/img/backgrounds/18.jpg'},
+                                 {image : 'logins/img/backgrounds/19.jpg'},
+                                 {image : 'logins/img/backgrounds/20.jpg'},
+                                 {image : 'logins/img/backgrounds/21.jpg'}
                        ]
 
     });
