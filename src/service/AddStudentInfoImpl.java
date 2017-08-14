@@ -27,10 +27,17 @@ public class AddStudentInfoImpl implements AddStudentInfo{
     public String check(Student student){
         return "success";
     }
-    public List select(){
+    public List select(String names){
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         String sql = "select new Student(S.id,S.name,S.old,S.studentnumber,S.sex,S.address,S.grade,S.gradeclass,S.starttime,S.phonenum,S.national) from Student S";
+        String aa = String.valueOf(names);
+        if(aa.equals("null")){
+            sql = sql+"";
+        }
+        if(!aa.equals("null")){
+            sql = sql+" where name ="+names;
+        }
         Query query = session.createQuery(sql);
         List list = query.list();
         tx.commit();

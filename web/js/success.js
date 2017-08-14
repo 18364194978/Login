@@ -31,6 +31,7 @@ Ext.onReady(function () {
     });
     var selectStudent = new Ext.FormPanel({
         name: 'add_panel',
+        id:'selectStudent',
         bodyStyle: 'padding:10 5 0',
         defaultType: 'textfield',
         labelAlign: 'right',
@@ -42,6 +43,7 @@ Ext.onReady(function () {
                 name:'name',
                 allowBlank:true,
                 fieldLabel:'姓名',
+                xtype:'textfield',
                 anchor:'90%'
 
             }]
@@ -173,8 +175,8 @@ Ext.onReady(function () {
                 type:'json',
                 root:'items'
             }
-        },
-        autoLoad:true
+        }
+        // autoLoad:true//此处为已进入界面自动加载数据，若无此自动加载则需要手动grid.store.reload()加载
     });
 
     var columns = Ext.create('Ext.grid.ColumnModel',{
@@ -243,7 +245,6 @@ Ext.onReady(function () {
             },{
                 text: '入学时间', dataIndex: 'starttime',width:120
         }]
-
     });
     var add_win = new Ext.Window({//此处为公共add弹窗
         title:'添加信息',
@@ -309,7 +310,11 @@ Ext.onReady(function () {
         buttons:[{
             text:'确定',
             handler:function () {
-                // selecStudents();
+                grid.store.load({//此处通过params传参获取数据，不传参的话把params属性去掉即可
+                    params: {
+                        name: Ext.getCmp('selectStudent').getComponent('name').getValue()
+                    }
+                });
             }
         },
             {
@@ -571,6 +576,12 @@ Ext.onReady(function () {
                                     selectStudentWin.show();
                                 }
 
+                            },
+                            {
+                                text:'查询',
+                                handler:function () {
+                                    grid.store.reload();
+                                }
                             }
                             ],
                         items:[grid]

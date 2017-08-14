@@ -8,5 +8,6 @@ import java.util.List;
 public interface AddStudentInfo {
     public void add(Student student);
     public String check(Student student);
-    public List select();
+    public List select(String names);
+    public void delete(Student student);
 }

@@ -137,54 +137,11 @@ public class AddStudentInfoAction {
     public String deleteStudent(){
         HttpServletResponse response =ServletActionContext.getResponse();
         response.setContentType("text/html;charset=utf-8");
-//        String nams = getName();
-//        String nu = getNul();
-////        nams.toString();
-//        String nulls = "null";
-//        Boolean b = nams.equals(nu);
         try {
             Student student = new Student();
             student.setId(getId());
 //            String name = getName();
             String old = getOld();
-            String a = "a";
-//            String name1 = name.toString();
-//            Boolean b = name1.equals("null");
-            String studentnumber = getStudentnumber();
-//            String sex = getSex();
-//            String address = getAddress();
-//            String grade = getGrade();
-//            String gradeclass = getGradeclass();
-//            String starttime = getStarttime();
-//            String phonenum = getPhonenum();
-//            Boolean a = name.equals("null");
-//            if(name.equals("null")){
-//                student.setName("");
-//            }
-//            if(old.equals("null")){
-//                student.setOld("");
-//            }
-//            if(studentnumber.equals("null")){
-//                student.setStudentnumber("");
-//            }
-//            if(sex.equals("null")){
-//                student.setSex("");
-//            }
-//            if(address.equals("null")){
-//                student.setAddress("");
-//            }
-//            if(grade.equals("null")){
-//                student.setGrade("");
-//            }
-//            if(gradeclass.equals("null")){
-//                student.setGradeclass("");
-//            }
-//            if(starttime.equals("null")){
-//                student.setStarttime("");
-//            }
-//            if(phonenum.equals("null")){
-//                student.setPhonenum("");
-//            }
             addStudentInfo.delete(student);
             response.getWriter().write("{success:true,msg:'成功了啊'}");
         }catch (Exception ex){
@@ -198,7 +155,8 @@ public class AddStudentInfoAction {
         PrintWriter out = null;
 //        response.setContentType("text/html;charset=utf-8");
         try {
-            List list = addStudentInfo.select();
+            String names = getName();
+            List list = addStudentInfo.select(names);
             JSONArray json = JSONArray.fromObject(list);
             System.out.println(json);
             out = response.getWriter();
