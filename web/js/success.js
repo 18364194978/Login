@@ -246,6 +246,70 @@ Ext.onReady(function () {
                 text: '入学时间', dataIndex: 'starttime',width:120
         }]
     });
+    var treeStore = Ext.create('Ext.data.TreeStore', {
+        root: {
+            expanded: false,//默认不展开
+            children: [   //这里是树的节点 有层级的
+                { text: "一级节点", leaf: true,id:'firstNode',checked:false },
+                { text: "一级节点1", expanded: false,checked:false},
+                { text: "无限加载子节点", leaf: false,checked:false } //leaf:false表示有下级节点
+            ]
+        }
+    });
+    var treeloader = Ext.create('Ext.data.Store', {
+        fields:[{name:'a'},{name:'b'}],
+        groupField: 'id',
+        proxy: {
+            type:'ajax',
+            url : 'getTreeRoot.action',
+            reader:{
+                type:'json',
+                root:'items'
+            }
+        },
+        autoLoad:true//此处为已进入界面自动加载数据，若无此自动加载则需要手动grid.store.reload()加载
+    });
+    var tree = Ext.create('Ext.tree.Panel',{
+        title:'结构树',
+        width:250,
+        // store:treeStore,
+        loader: treeloader,
+        columns:[{
+            header: 'a',
+            dataIndex: 'a', //索引，与JSON数据中的某个名称对应
+            width: 230
+        },{
+            header: 'a',
+            width: 100,
+            dataIndex: 'b',
+            align: 'center',
+        }],
+        autoEncode:true,//提交时自动编码
+        rootVisible:false,
+        listeners:{
+            beforeitemexpand:function (node,optd) {
+                var tt = node.data.text;
+                treeloader.setProxy({
+                    type:'ajax',
+                    url:'getTreeInfo.action',
+                    extraParams:{time:tt}
+                })
+            }
+        }
+        // root:{
+        //     text:'树根',
+        //     expanded:true,
+        //     children:[{
+        //         text:'节点一',
+        //         checked:true,
+        //         leaf:true
+        //     },{
+        //         text:'节点二',
+        //         checked:false,
+        //         leaf:true
+        //     }]
+        // }
+    });
     var add_win = new Ext.Window({//此处为公共add弹窗
         title:'添加信息',
         layout:'fit',
@@ -540,7 +604,8 @@ Ext.onReady(function () {
                             })
                         }
                     }
-                ]
+                ],
+                items:[tree]
             },
             {
                 xtype:"tabpanel",//面板的类型

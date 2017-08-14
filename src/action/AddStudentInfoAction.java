@@ -177,6 +177,43 @@ public class AddStudentInfoAction {
         }
         return null;
     }
+    public String getTreeRoot(){
+        HttpServletResponse response =ServletActionContext.getResponse();
+        PrintWriter out = null;
+        try {
+            StringBuffer sb = new StringBuffer("[{id:'a',text:'节点aaaa',leaf: false,checked:false},{id:'b',text:'节点bbb',leaf: false,checked:false}]");
+            out = response.getWriter();
+            out.write(sb.toString());
+        }catch (Exception ex){
+            System.out.println(ex);
+        }finally {
+            if(out!=null){
+                out.close();
+            }
+        }
+        return null;
+    }
+    public String getTreeInfo(){
+        HttpServletResponse response =ServletActionContext.getResponse();
+        PrintWriter out = null;
+        try {
+            StringBuffer sb = new StringBuffer("[");
+            for (int i = 0; i < 4; i++) {
+                int id = (int) (Math.random()*100000);
+                sb.append("{id:"+id+",text:'异步节点"+i+"',leaf: false,checked:false},");
+            }
+            sb.append("]");
+            out = response.getWriter();
+            out.write(sb.toString());
+        }catch (Exception ex){
+            System.out.println(ex);
+        }finally {
+            if(out!=null){
+                out.close();
+            }
+        }
+        return null;
+    }
     public void setAddStudentInfo(AddStudentInfoImpl addStudentInfo){
         this.addStudentInfo = addStudentInfo;
     }
