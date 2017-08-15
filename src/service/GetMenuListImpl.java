@@ -19,7 +19,21 @@ public class GetMenuListImpl implements GetMenuList {
     public List select(){
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
+        String sql = "select new Menulist(M.id,M.name,M.text,M.leaf,M.checked)from Menulist M where M.parentid = null ";
+        Query query = session.createQuery(sql);
+        List list = query.list();
+        tx.commit();
+        session.close();
+        return list;
+    }
+    public List selectByParentId(String ids){
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
         String sql = "select new Menulist(M.id,M.name,M.text,M.leaf,M.checked)from Menulist M";
+        String parentId = String.valueOf(ids);
+        if(!parentId.equals("null")){
+            sql = sql+" where M.parentid ="+parentId;
+        }
         Query query = session.createQuery(sql);
         List list = query.list();
         tx.commit();

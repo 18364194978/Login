@@ -14,6 +14,13 @@ import java.util.List;
 public class GetMenuListAction {
     @Autowired
     private GetMenuListImpl getMenuList;
+    private String id;
+    public void setId(String id){
+        this.id = id;
+    }
+    public String getId(){
+        return id;
+    }
     public String getmenu(){
         HttpServletResponse response =ServletActionContext.getResponse();
         PrintWriter out = null;
@@ -33,9 +40,29 @@ public class GetMenuListAction {
         }
         return null;
     }
-    public String getTreeInfo(){
+    public String getTreeInfoByParentId(){
         HttpServletResponse response =ServletActionContext.getResponse();
         PrintWriter out = null;
+        response.setContentType("text/html;charset=utf-8");
+        try {
+            String ids = getId();
+            List list = getMenuList.selectByParentId(ids);
+            JSONArray json = JSONArray.fromObject(list);
+            out = response.getWriter();
+            out.write(json.toString());
+        }catch (Exception ex){
+            System.out.println(ex);
+        }finally {
+            if(out!=null){
+                out.close();
+            }
+        }
+        return null;
+    }
+    public String getTreeInfo(){//可以得到无限节点
+        HttpServletResponse response =ServletActionContext.getResponse();
+        PrintWriter out = null;
+        response.setContentType("text/html;charset=utf-8");
         try {
             StringBuffer sb = new StringBuffer("[");
             for (int i = 0; i < 4; i++) {

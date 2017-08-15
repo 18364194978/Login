@@ -6,4 +6,5 @@ import java.util.List;
  */
 public interface GetMenuList {
     public List select();
+    public List selectByParentId(String ids);
 }

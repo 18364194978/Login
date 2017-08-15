@@ -279,11 +279,13 @@ Ext.onReady(function () {
         rootVisible:false,
        listeners:{
             beforeitemexpand:function (node,optd) {
-                var tt = node.data.text;
+                var getNodeId = node.data.id;
                 treestoreload.setProxy({
                     type:'ajax',
-                    url:'getTreeInfo.action',
-                    extraParams:{time:tt}
+                    url:'getTreeInfoByParentId.action',
+                    extraParams:{
+                        id:getNodeId
+                    }
                 })
             }
         }
