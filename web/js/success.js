@@ -273,11 +273,10 @@ Ext.onReady(function () {
     var tree = Ext.create('Ext.tree.Panel',{
         title:'结构树',
         width:250,
-        // store:treeStore,
         store: treestoreload,
         autoEncode:true,//提交时自动编码
         rootVisible:false,
-       listeners:{
+        listeners:{
             beforeitemexpand:function (node,optd) {
                 var getNodeId = node.data.id;
                 treestoreload.setProxy({
@@ -289,19 +288,6 @@ Ext.onReady(function () {
                 })
             }
         }
-        // root:{
-        //     text:'树根',
-        //     expanded:true,
-        //     children:[{
-        //         text:'节点一',
-        //         checked:true,
-        //         leaf:true
-        //     },{
-        //         text:'节点二',
-        //         checked:false,
-        //         leaf:true
-        //     }]
-        // }
     });
     var add_win = new Ext.Window({//此处为公共add弹窗
         title:'添加信息',
@@ -652,7 +638,4 @@ Ext.onReady(function () {
             }
         ]
     });
-    // $('#closeBtn').click(function () {
-    //     exit();
-    // });
 });
