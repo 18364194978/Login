@@ -30,6 +30,6 @@
         <action name="getStudentInfo" class="action.AddStudentInfoAction" method="getStudentInfo"></action>
         <action name="deleteStudentInfo" class="action.AddStudentInfoAction" method="deleteStudent"></action>
         <action name="getTreeInfo" class="action.AddStudentInfoAction" method="getTreeInfo"></action>
-        <action name="getTreeRoot" class="action.AddStudentInfoAction" method="getTreeRoot"></action>
+        <action name="getTreeRoot" class="action.GetMenuListAction" method="getmenu"></action>
     </package>
 </struts>

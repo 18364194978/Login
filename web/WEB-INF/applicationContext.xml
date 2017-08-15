@@ -25,6 +25,7 @@
             <list>
                 <value>bean.Addresslist</value>
                 <value>bean.Student</value>
+                <value>bean.Menulist</value>
             </list>
         </property>
     </bean>
@@ -32,6 +33,9 @@
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
     <bean id="addStudentInfo" class="service.AddStudentInfoImpl">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="getMenuList" class="service.GetMenuListImpl">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
 </beans>

@@ -5,6 +5,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import java.io.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
@@ -181,9 +182,10 @@ public class AddStudentInfoAction {
         HttpServletResponse response =ServletActionContext.getResponse();
         PrintWriter out = null;
         try {
-            StringBuffer sb = new StringBuffer("[{id:'a',text:'节点aaaa',leaf: false,checked:false},{id:'b',text:'节点bbb',leaf: false,checked:false}]");
+            String sb = "{[{id:'a',name:'a',text:'节点aaaa',leaf: false,checked:false},{id:'b',name:'b',text:'节点bbb',leaf: false,checked:false}]}";
+            JSONObject json = JSONObject.fromObject(sb);
             out = response.getWriter();
-            out.write(sb.toString());
+            out.write(json.toString());
         }catch (Exception ex){
             System.out.println(ex);
         }finally {

@@ -256,40 +256,31 @@ Ext.onReady(function () {
             ]
         }
     });
-    var treeloader = Ext.create('Ext.data.Store', {
-        fields:[{name:'a'},{name:'b'}],
-        groupField: 'id',
-        proxy: {
+    var treestoreload = Ext.create('Ext.data.TreeStore',{
+        proxy:{
             type:'ajax',
-            url : 'getTreeRoot.action',
+            url:'getTreeRoot.action',
             reader:{
                 type:'json',
-                root:'items'
+                root:'treeList'
             }
         },
-        autoLoad:true//此处为已进入界面自动加载数据，若无此自动加载则需要手动grid.store.reload()加载
+        root:{
+            text:'根节点',
+            expanded:true
+        }
     });
     var tree = Ext.create('Ext.tree.Panel',{
         title:'结构树',
         width:250,
         // store:treeStore,
-        loader: treeloader,
-        columns:[{
-            header: 'a',
-            dataIndex: 'a', //索引，与JSON数据中的某个名称对应
-            width: 230
-        },{
-            header: 'a',
-            width: 100,
-            dataIndex: 'b',
-            align: 'center',
-        }],
+        store: treestoreload,
         autoEncode:true,//提交时自动编码
         rootVisible:false,
-        listeners:{
+       listeners:{
             beforeitemexpand:function (node,optd) {
                 var tt = node.data.text;
-                treeloader.setProxy({
+                treestoreload.setProxy({
                     type:'ajax',
                     url:'getTreeInfo.action',
                     extraParams:{time:tt}
