@@ -288,6 +288,18 @@ Ext.onReady(function () {
                         id:getNodeId
                     }
                 })
+            },
+            itemclick:function (v,r,item) {
+                var n = tab.getComponent(r.raw.id);
+                if(!n){
+                    n = tab.add({
+                        'id':r.raw.id,
+                        'title':r.raw.text,
+                        closable:true,
+                        html:'<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="'+r.raw.id+'"></iframe>'
+                    });
+                }
+                tab.setActiveTab(n);
             }
         }
     });
@@ -520,124 +532,152 @@ Ext.onReady(function () {
             }
         });
     }
-    var viewport = new Ext.Viewport({
-        enableTabScroll:true,
-        layout:"border",//采用border布局
-        items:[
-            {
-                region:"north",
-                height:80,
-                split : true,
-                split : true,
-                margins:'10 10 10 10',
-                title:"面板的标题(上部分)",
-                items:[
-                    {
-                        xtype:'panel',
-                        border:false,
-                        layout:{
-                            type:'vbox',
-                            align:'right',
-                            padding:'7 3 0 0 '
-                        },
-                        width:'100%',
-                        items:[{
-                            xtype:'fieldcontainer',
-                            layout:'column',
-                            items:[{
-                                xtype:'button',
-                                text:'<span class="hydg_btn">修改密码</span>',
-                                scale:'medium',
-                                id:'11',
-                                margin:'0 5 0 0',
-                                handler:function () {
-                                }
-                            },{
-                                xtype: 'button',
-                                text: '<span class="hydg_btn">退出</span>',
-                                scale: 'medium',
-                                id: 'btnSearchOption',
-                                handler:function () {
-                                    exit();
-                                }
-                            }]
-                        }],
-                        html:'<p>这是一段文字</p>'
-                    }
-                ],
-                html:"<div id='closeDiv' style='height: 100%'></div>"
-            },
-            {
-                region:"west",
-                width:120,
-                title:"面板的标题(左部分)",
-                html:"<h1>结构树</h1>",
-                bbar:[
-                    {
-                        text:'测试',
-                        id:"testId",
-                        handler:function(){
-                            Ext.Msg.show({
-                                title:'成了啊',
-                                msg:"很好",
-                                icon:Ext.Msg.QUESTION,
-                                buttons:Ext.Msg.YESNO
-                            })
-                        }
-                    }
-                ],
-                items:[tree]
-            },
-            {
-                xtype:"tabpanel",//面板的类型
-                region:"center",
-                html:"<h1>显示操作部分</h1>",
-                items:[
-                    {
-                        title:"新闻管理",
-                        tbar: [
-                            {
-                                text:'新增',
-                                handler:function () {
-                                    add_win.show();
-                                    add_win.setTitle("添加新信息");
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        title:"用户管理",
-                        tbar:[
-                            {
-                                text:"新增学生",
-                                handler:function () {
-                                    add_studentlistWin.show();
-                                }
-                            },
-                            {
-                                text:'删除学生',
-                                handler:function () {
-                                    deleteStudent();
-                                }
-                            },
-                            {
-                                text:'信息查询',
-                                handler:function () {
-                                    selectStudentWin.show();
-                                }
-
-                            },
-                            {
-                                text:'查询',
-                                handler:function () {
-                                    grid.store.reload();
-                                }
-                            }
-                            ],
-                        items:[grid]
-                    }
-                ]
-            }
-        ]
+    var tab = Ext.create('Ext.TabPanel', {
+        region : 'center',
+        deferredRender : false,
+        activeTab : 0,
+        resizeTabs : true, // turn on tab resizing
+        minTabWidth : 115,
+        tabWidth : 135,
+        enableTabScroll : true
     });
+    var viewPort = Ext.create('Ext.Viewport', {
+        layout : "border",
+        items : [ {
+            region : 'north',
+            minHeight : 100,
+            html : 'north'
+        }, {
+            title : 'West Region is collapsible',
+            region : 'west',
+            xtype : 'panel',
+            width : 200,
+            id : 'west-region-container',
+            items : [tree]
+},tab, {
+        region : 'south',
+        minHeight : 25,
+        html:"<div align='center'>版权所有 xxxx有限公司 © 信息服务中心</div>"
+    } ]
+})
+// var viewport = new Ext.Viewport({
+    //     enableTabScroll:true,
+    //     layout:"border",//采用border布局
+    //     items:[
+    //         {
+    //             region:"north",
+    //             height:80,
+    //             split : true,
+    //             split : true,
+    //             margins:'10 10 10 10',
+    //             title:"面板的标题(上部分)",
+    //             items:[
+    //                 {
+    //                     xtype:'panel',
+    //                     border:false,
+    //                     layout:{
+    //                         type:'vbox',
+    //                         align:'right',
+    //                         padding:'7 3 0 0 '
+    //                     },
+    //                     width:'100%',
+    //                     items:[{
+    //                         xtype:'fieldcontainer',
+    //                         layout:'column',
+    //                         items:[{
+    //                             xtype:'button',
+    //                             text:'<span class="hydg_btn">修改密码</span>',
+    //                             scale:'medium',
+    //                             id:'11',
+    //                             margin:'0 5 0 0',
+    //                             handler:function () {
+    //                             }
+    //                         },{
+    //                             xtype: 'button',
+    //                             text: '<span class="hydg_btn">退出</span>',
+    //                             scale: 'medium',
+    //                             id: 'btnSearchOption',
+    //                             handler:function () {
+    //                                 exit();
+    //                             }
+    //                         }]
+    //                     }],
+    //                     html:'<p>这是一段文字</p>'
+    //                 }
+    //             ],
+    //             html:"<div id='closeDiv' style='height: 100%'></div>"
+    //         },
+    //         {
+    //             region:"west",
+    //             width:120,
+    //             title:"面板的标题(左部分)",
+    //             html:"<h1>结构树</h1>",
+    //             bbar:[
+    //                 {
+    //                     text:'测试',
+    //                     id:"testId",
+    //                     handler:function(){
+    //                         Ext.Msg.show({
+    //                             title:'成了啊',
+    //                             msg:"很好",
+    //                             icon:Ext.Msg.QUESTION,
+    //                             buttons:Ext.Msg.YESNO
+    //                         })
+    //                     }
+    //                 }
+    //             ],
+    //             items:[tree]
+    //         },
+    //         {
+    //             xtype:"tabpanel",//面板的类型
+    //             region:"center",
+    //             html:"<h1>显示操作部分</h1>",
+    //             items:[
+    //                 {
+    //                     title:"新闻管理",
+    //                     tbar: [
+    //                         {
+    //                             text:'新增',
+    //                             handler:function () {
+    //                                 add_win.show();
+    //                                 add_win.setTitle("添加新信息");
+    //                             }
+    //                         }
+    //                     ]
+    //                 },
+    //                 {
+    //                     title:"用户管理",
+    //                     tbar:[
+    //                         {
+    //                             text:"新增学生",
+    //                             handler:function () {
+    //                                 add_studentlistWin.show();
+    //                             }
+    //                         },
+    //                         {
+    //                             text:'删除学生',
+    //                             handler:function () {
+    //                                 deleteStudent();
+    //                             }
+    //                         },
+    //                         {
+    //                             text:'信息查询',
+    //                             handler:function () {
+    //                                 selectStudentWin.show();
+    //                             }
+    //
+    //                         },
+    //                         {
+    //                             text:'查询',
+    //                             handler:function () {
+    //                                 grid.store.reload();
+    //                             }
+    //                         }
+    //                         ],
+    //                     items:[grid]
+    //                 }
+    //             ]
+    //         }
+    //     ]
+    // });
 });
