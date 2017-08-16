@@ -273,6 +273,7 @@ Ext.onReady(function () {
     var tree = Ext.create('Ext.tree.Panel',{
         title:'结构树',
         width:250,
+        lines:false,
         store: treestoreload,
         autoEncode:true,//提交时自动编码
         rootVisible:false,

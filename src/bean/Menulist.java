@@ -17,12 +17,11 @@ public class Menulist {
     private String checked;
     private String parentid;
     public Menulist(){}
-    public Menulist(int id, String name,String text, String leaf, String checked){
+    public Menulist(int id, String name,String text, String leaf){
         this.id = id;
         this.name = name;
         this.text = text;
         this.leaf = leaf;
-        this.checked = checked;
     }
     @Id
     @Column(name = "id", nullable = false)
@@ -74,15 +73,6 @@ public class Menulist {
         this.leaf = leaf;
     }
 
-    @Basic
-    @Column(name = "checked", nullable = true, length = 64)
-    public String getChecked() {
-        return checked;
-    }
-
-    public void setChecked(String checked) {
-        this.checked = checked;
-    }
 
     @Override
     public boolean equals(Object o) {
