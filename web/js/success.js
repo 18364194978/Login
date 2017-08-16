@@ -275,6 +275,7 @@ Ext.onReady(function () {
         width:250,
         lines:false,
         store: treestoreload,
+        useArrows : true,
         autoEncode:true,//提交时自动编码
         rootVisible:false,
         listeners:{
