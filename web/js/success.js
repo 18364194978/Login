@@ -292,6 +292,7 @@ Ext.onReady(function () {
                 })
             },
             itemclick: function (view, record, item) {
+                var getMenuName = record.get('menuname');
                 if (record.get('leaf')) { //叶子节点
                     var id = record.get('id');
                     if (tab.getComponent(id)){
@@ -299,9 +300,10 @@ Ext.onReady(function () {
                     } else {
                         tab.add({
                             title: record.get('text'),
-                            html: 'tab内容--' + record.get('text'),
+                            // html: 'tab内容--' + record.get('text'),
                             closable: true,
-                            id: id
+                            id: id,
+                            html: '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="./jsp/getInfo.jsp"></iframe>'
                         });
                     }
                 }
@@ -560,7 +562,19 @@ Ext.onReady(function () {
         resizeTabs: true, // turn on tab resizing
         minTabWidth: 115,
         // tabWidth: 135,
-        enableTabScroll: true
+        enableTabScroll: true,
+        items:[{
+            title:"新闻管理",
+            tbar: [
+                {
+                    text:'新增',
+                    handler:function () {
+                        add_win.show();
+                        add_win.setTitle("添加新信息");
+                    }
+                }
+            ]
+        }]
     });
     var viewPort = Ext.create('Ext.Viewport', {
         layout: "border",

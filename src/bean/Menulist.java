@@ -15,12 +15,14 @@ public class Menulist {
     private String text;
     private String leaf;
     private String parentid;
+    private String menuname;
     public Menulist(){}
-    public Menulist(int id, String name,String text, String leaf){
+    public Menulist(int id, String name,String text, String leaf,String menuname){
         this.id = id;
         this.name = name;
         this.text = text;
         this.leaf = leaf;
+        this.menuname = menuname;
     }
     @Id
     @Column(name = "id", nullable = false)
@@ -50,6 +52,16 @@ public class Menulist {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Basic
+    @Column(name = "menuname", nullable = true, length = 64)
+    public String getMenuname() {
+        return menuname;
+    }
+
+    public void setMenuname(String menuname) {
+        this.menuname = menuname;
     }
 
     @Basic
@@ -84,6 +96,7 @@ public class Menulist {
         if (name != null ? !name.equals(menulist.name) : menulist.name != null) return false;
         if (text != null ? !text.equals(menulist.text) : menulist.text != null) return false;
         if (leaf != null ? !leaf.equals(menulist.leaf) : menulist.leaf != null) return false;
+        if (menuname != null ? !menuname.equals(menulist.menuname) : menulist.menuname != null) return false;
         if (parentid != null ? !parentid.equals(menulist.parentid) : menulist.parentid != null) return false;
         return true;
     }
@@ -94,6 +107,7 @@ public class Menulist {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (text != null ? text.hashCode() : 0);
         result = 31 * result + (leaf != null ? leaf.hashCode() : 0);
+        result = 31 * result + (menuname != null ? menuname.hashCode() : 0);
         result = 31 * result + (parentid != null ? parentid.hashCode() : 0);
         return result;
     }

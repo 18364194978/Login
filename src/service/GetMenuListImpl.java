@@ -19,7 +19,7 @@ public class GetMenuListImpl implements GetMenuList {
     public List select(){
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        String sql = "select new Menulist(M.id,M.name,M.text,M.leaf)from Menulist M where M.parentid = null ";
+        String sql = "select new Menulist(M.id,M.name,M.text,M.leaf,M.menuname)from Menulist M where M.parentid = null ";
         Query query = session.createQuery(sql);
         List list = query.list();
         tx.commit();
@@ -29,7 +29,7 @@ public class GetMenuListImpl implements GetMenuList {
     public List selectByParentId(String ids){
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        String sql = "select new Menulist(M.id,M.name,M.text,M.leaf)from Menulist M";
+        String sql = "select new Menulist(M.id,M.name,M.text,M.leaf,M.menuname)from Menulist M";
         String parentId = String.valueOf(ids);
         if(!parentId.equals("null")){
             sql = sql+" where M.parentid ="+parentId;
