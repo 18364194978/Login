@@ -293,6 +293,7 @@ Ext.onReady(function () {
             },
             itemclick: function (view, record, item) {
                 var getMenuName = record.get('menuname');
+                var getSrc = "./jsp/"+getMenuName+".jsp";
                 if (record.get('leaf')) { //叶子节点
                     var id = record.get('id');
                     if (tab.getComponent(id)){
@@ -303,7 +304,7 @@ Ext.onReady(function () {
                             // html: 'tab内容--' + record.get('text'),
                             closable: true,
                             id: id,
-                            html: '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="./jsp/getInfo.jsp"></iframe>'
+                            html: '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="'+getSrc+'"></iframe>'
                         });
                     }
                 }
