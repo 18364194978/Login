@@ -306,6 +306,7 @@ Ext.onReady(function () {
                             id: id,
                             html: '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="'+getSrc+'"></iframe>'
                         });
+                        tab.setActiveTab(id);
                     }
                 }
                 // var n = tab.getComponent(r.raw.id);
