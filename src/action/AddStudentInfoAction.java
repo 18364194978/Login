@@ -159,7 +159,7 @@ public class AddStudentInfoAction {
     public String getStudentInfo(){
         HttpServletResponse response =ServletActionContext.getResponse();
         PrintWriter out = null;
-//        response.setContentType("text/html;charset=utf-8");
+        response.setContentType("text/html;charset=utf-8");
         try {
             String names = getName();
             List list = addStudentInfo.select(names);
