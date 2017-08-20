@@ -15,7 +15,8 @@
 %>
 <html>
 <head>
-    <title>Title</title><link rel="stylesheet"type="text/css" href="<%=basePath%>resources/ext-theme-classic/build/resources/ext-theme-classic-all.css">
+    <title>成功界面</title>
+    <link rel="stylesheet"type="text/css" href="<%=basePath%>resources/ext-theme-classic/build/resources/ext-theme-classic-all.css">
 
     <script type="text/JavaScript"src="<%=basePath%>resources/ext-all.js"></script>
 
@@ -30,6 +31,5 @@
     <script type="text/javascript"src="<%=basePath%>js/getInfo.js"></script>
 </head>
 <body>
-<div id="gird"></div>
 </body>
 </html>

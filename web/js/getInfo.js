@@ -1,6 +1,6 @@
 Ext.onReady(function () {
     var selectStudent = new Ext.FormPanel({
-        name: 'add_panel',
+        name: 'add_panel2',
         id: 'selectStudent',
         bodyStyle: 'padding:10 5 0',
         defaultType: 'textfield',
@@ -20,6 +20,7 @@ Ext.onReady(function () {
     });
     var add_studentlist = new Ext.FormPanel({
         name: 'add_panel',
+        id:'add_panel',
         bodyStyle: 'padding:10 5 0',
         defaultType: 'textfield',
         labelAlign: 'right',
@@ -43,8 +44,8 @@ Ext.onReady(function () {
             fieldLabel: '性别',
             xtype: 'radiogroup',
             items: [
-                {boxLabel: '男', name: 'sex', inputValue: 'male'},
-                {boxLabel: '女', name: 'sex', inputValue: 'female'},
+                {boxLabel: '男', name: 'sex', inputValue: '男'},
+                {boxLabel: '女', name: 'sex', inputValue: '女'},
             ]
         }, {
             id: 'old',
@@ -135,33 +136,52 @@ Ext.onReady(function () {
             anchor: '99%'
         }]
     });
-    var selectStudentWin = new Ext.Window({
-        title: '查询信息',
-        layout: 'fit',
-        closble: true,
-        collapsible: true,
-        width: 500,
-        hight: 300,
-        items: [selectStudent],
-        modal: true,
-        constrain: true,
-        titleCollapse: true,
-        buttonAlign: 'center',
-        buttons: [{
-            text: '确定',
-            handler: function () {
-                grid.store.load({//此处通过params传参获取数据，不传参的话把params属性去掉即可
-                    params: {
-                        name: Ext.getCmp('selectStudent').getComponent('name').getValue()
-                    }
-                });
+    var store = Ext.create('Ext.data.Store', {
+        fields: [{name: 'address'}, {name: 'grade'}, {name: 'gradeclass'}, {name: 'id'}, {name: 'name'}, {name: 'national'}, {name: 'old'}, {name: 'phonenum'}, {name: 'sex'}, {name: 'starttime'}, {name: 'studentnumber'}],
+        groupField: 'id',
+        proxy: {
+            type: 'ajax',
+            url: 'getStudentInfo.action',
+            reader: {
+                type: 'json',
+                root: 'items'
             }
-        },
+        }
+        // autoLoad:true//此处为已进入界面自动加载数据，若无此自动加载则需要手动grid.store.reload()加载
+    });
+    var sm = Ext.create('Ext.selection.CheckboxModel');
+    var grid = Ext.create('Ext.grid.Panel', {
+        frame: true,
+        id: 'grid',
+        height: 800,
+        columnLines: true, // 加上表格线
+        store: store,
+        selModel: sm,//添加复选框
+        // columns:columns
+        columns: [
+            new Ext.grid.RowNumberer(),//添加行号
+            //     text: 'ID', dataIndex: 'id',width:100
+            // },
             {
-                text: '取消',
-                handler: function () {
-                    selectStudentWin.hide();
-                }
+                text: '姓名', dataIndex: 'name', width: 100
+            }, {
+                text: '性别', dataIndex: 'sex', width: 50
+            }, {
+                text: '年龄', dataIndex: 'old', width: 50
+            }, {
+                text: '学号', dataIndex: 'studentnumber', width: 180
+            }, {
+                text: '年级', dataIndex: 'grade', width: 100
+            }, {
+                text: '班级', dataIndex: 'gradeclass', width: 100
+            }, {
+                header: '籍贯', dataIndex: 'address', width: 100, renderer: console()
+            }, {
+                text: '电话', dataIndex: 'phonenum', width: 100
+            }, {
+                text: '民族', dataIndex: 'national', width: 100,
+            }, {
+                text: '入学时间', dataIndex: 'starttime', width: 120
             }]
     });
     var add_studentlistWin = new Ext.Window({//此处为公共add弹窗
@@ -183,54 +203,43 @@ Ext.onReady(function () {
                 // addInfoToData();
                 addStudentInfoToData();
             }
+        },{
+            text:"取消",
+            handler:function () {
+                Ext.getCmp('add_panel').getForm().reset();
+                add_studentlistWin.hide();
+            }
         }]
     });
-    var store = Ext.create('Ext.data.Store', {
-        fields: [{name: 'address'}, {name: 'grade'}, {name: 'gradeclass'}, {name: 'id'}, {name: 'name'}, {name: 'national'}, {name: 'old'}, {name: 'phonenum'}, {name: 'sex'}, {name: 'starttime'}, {name: 'studentnumber'}],
-        groupField: 'id',
-        proxy: {
-            type: 'ajax',
-            url: 'getStudentInfo.action',
-            reader: {
-                type: 'json',
-                root: 'items'
+    var selectStudentWin = new Ext.Window({
+        title: '查询信息',
+        layout: 'fit',
+        closble: true,
+        collapsible: true,
+        width: 500,
+        hight: 300,
+        items: [selectStudent],
+        modal: true,
+        constrain: true,
+        titleCollapse: true,
+        buttonAlign: 'center',
+        buttons: [{
+            text: '确定',
+            handler: function () {
+                var a = Ext.getCmp('selectStudent').getComponent('name').getValue();
+                // Ext.getCmp('selectStudent').getForm().reset();
+                grid.store.load({//此处通过params传参获取数据，不传参的话把params属性去掉即可
+                    params: {
+                        name: Ext.getCmp('selectStudent').getComponent('name').getValue()
+                    }
+                });
             }
         },
-        autoLoad:true//此处为已进入界面自动加载数据，若无此自动加载则需要手动grid.store.reload()加载
-    });
-    var sm = Ext.create('Ext.selection.CheckboxModel');
-    var grid = Ext.create('Ext.grid.Panel', {
-        frame: true,
-        id: 'grid',
-        height: 800,
-        columnLines: true, // 加上表格线
-        store: store,
-        selModel: sm,//添加复选框
-        // columns:columns
-        columns: [
-            new Ext.grid.RowNumberer(),//添加行号
-            //     text: 'ID', dataIndex: 'id',width:100
-            // },
             {
-                text: '姓名', dataIndex: 'name', width: 100
-            }, {
-                text: '性别', dataIndex: 'sex', width: 180
-            }, {
-                text: '年龄', dataIndex: 'old', width: 100
-            }, {
-                text: '学号', dataIndex: 'studentnumber', width: 180
-            }, {
-                text: '年级', dataIndex: 'grade', width: 100
-            }, {
-                text: '班级', dataIndex: 'gradeclass', width: 100
-            }, {
-                header: '籍贯', dataIndex: 'address', width: 100, renderer: console()
-            }, {
-                text: '电话', dataIndex: 'phonenum', width: 100
-            }, {
-                text: '民族', dataIndex: 'national', width: 100,
-            }, {
-                text: '入学时间', dataIndex: 'starttime', width: 120
+                text: '取消',
+                handler: function () {
+                    selectStudentWin.hide();
+                }
             }]
     });
     function console() {
@@ -250,7 +259,8 @@ Ext.onReady(function () {
             url: 'addStudentInfo.action',
             method: 'post',
             success: function (form, action) {
-                add_studentlistWin.hide();
+                add_studentlistWin.close();
+                Ext.getCmp('add_panel').getForm().reset();
                 grid.store.reload();
                 Ext.Msg.show({
                     title: '新增信息',
