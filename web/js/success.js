@@ -569,6 +569,7 @@ Ext.onReady(function () {
             title:"新闻管理",
             tbar: [
                 {
+                    iconCls:"icon_add",
                     text:'新增',
                     handler:function () {
                         add_win.show();

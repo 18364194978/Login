@@ -19,7 +19,7 @@
     <link rel="stylesheet"type="text/css" href="<%=basePath%>resources/ext-theme-classic/build/resources/ext-theme-classic-all.css">
 
     <script type="text/JavaScript"src="<%=basePath%>resources/ext-all.js"></script>
-
+    <link rel="stylesheet"type="text/css" href="<%=basePath%>resources/icon.css">
     <script type="text/javascript"src="<%=basePath%>resources/ext-bootstrap.js"></script>
     <script type="text/javascript"src="<%=basePath%>resources/jquery.1.11.3.min.js"></script>
     <script type="text/javascript"src="<%=basePath%>resources/ext-theme-classic/build/ext-theme-classic.js"></script>

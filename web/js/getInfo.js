@@ -351,21 +351,25 @@ Ext.onReady(function () {
                 layout:'fit',
                 items:[grid],
                 tbar:[{
+                    iconCls:"icon_add",
                     text:'新增学生',
                     handler:function () {
                         add_studentlistWin.show();
                     }
                 },{
+                    iconCls:"icon_user_suit",
                     text:'筛选',
                     handler:function () {
                         selectStudentWin.show();
                     }
                 },{
+                    iconCls:"icon_delete",
                     text:'删除',
                     handler:function () {
                         deleteStudent();
                     }
                 },{
+                    iconCls:"icon_refresh",
                     text:'刷新',
                     handler:function () {
                         grid.store.reload();
