@@ -244,6 +244,12 @@ Ext.onReady(function () {
     });
     function console() {
     }
+    function exportData() {
+        var downloadIframe = document.createElement('iframe');
+        downloadIframe.src = 'exportData.action';
+        downloadIframe.style.display = "none";
+        document.body.appendChild(downloadIframe);
+    }
     function addStudentInfoToData() {
         var submitValues = add_studentlist.getForm().getValues();
         for (var param in submitValues) {
@@ -373,6 +379,12 @@ Ext.onReady(function () {
                     text:'刷新',
                     handler:function () {
                         grid.store.reload();
+                    }
+                },{
+                    iconCls:"icon_export",
+                    text:'导出',
+                    handler:function () {
+                        exportData();
                     }
                 }]
             }]

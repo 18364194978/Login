@@ -7,6 +7,12 @@ import org.apache.struts2.ServletActionContext;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import java.io.*;
+import java.text.SimpleDateFormat;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
@@ -153,6 +159,27 @@ public class AddStudentInfoAction {
         }catch (Exception ex){
             success = false;
             msg = "添加失败";
+        }
+        return null;
+    }
+    public String exportData(){
+        HttpServletResponse response = ServletActionContext.getResponse();
+        PrintWriter out = null;
+        response.setContentType("text/html;charset=utf-8");
+        try{
+            List list = addStudentInfo.exportData();
+//            JSONArray json = JSONArray.fromObject(list);
+            Object a= list.get(0);
+            Object n = a.getClass();
+            String i;
+//            out = response.getWriter();
+//            out.write(json.toString());
+        }catch (Exception ex){
+            System.out.println(ex);
+        }finally {
+            if (out!=null){
+                out.close();
+            }
         }
         return null;
     }
