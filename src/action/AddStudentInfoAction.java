@@ -1,12 +1,14 @@
 package action;
 import service.AddStudentInfoImpl;
 import bean.Student;
+import java.lang.reflect.Field;
 import com.opensymphony.xwork2.ActionSupport;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import java.io.*;
+import java.nio.Buffer;
 import java.text.SimpleDateFormat;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -162,24 +164,67 @@ public class AddStudentInfoAction {
         }
         return null;
     }
-    public String exportData(){
-        HttpServletResponse response = ServletActionContext.getResponse();
+    public static Object getValueByKey(Object obj, String key) {
+        // 得到类对象
+        Class userCla = (Class) obj.getClass();
+        /* 得到类中的所有属性集合 */
+        Field[] fs = userCla.getDeclaredFields();
+        for (int i = 0; i < fs.length; i++) {
+            Field f = fs[i];
+            f.setAccessible(true); // 设置些属性是可以访问的
+            try {
+
+                if (f.getName().endsWith(key)) {
+                    System.out.println("单个对象的某个键的值==反射==" + f.get(obj));
+                    return f.get(obj);
+                }
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        // 没有查到时返回空字符串
+        return "";
+    }
+    public String exportData() throws IOException {
+        HttpServletResponse response =ServletActionContext.getResponse();
         PrintWriter out = null;
-        response.setContentType("text/html;charset=utf-8");
-        try{
-            List list = addStudentInfo.exportData();
-//            JSONArray json = JSONArray.fromObject(list);
-            Object a= list.get(0);
-            Object n = a.getClass();
-            String i;
-//            out = response.getWriter();
-//            out.write(json.toString());
+        response.setHeader("Content-Disposition", "attachment; filename=aaaaa.xls");
+        OutputStream os= new BufferedOutputStream(response.getOutputStream());
+        response.setContentType("application/vnd.ms-excel;charset=gb2312");
+//        os.write(Buffer);
+        os.flush();
+        os.close();
+            HSSFWorkbook wb = new HSSFWorkbook();//1、创建一个webbook，对应一个Excel文件
+            HSSFSheet sheet = wb.createSheet("表一");//2、在webbook中添加一个sheet，对应Excel文件中的sheet
+            HSSFRow row = sheet.createRow((int)0);//3、在sheet中添加表头第0行，老版本poi对excel的行数有限制short
+            HSSFCellStyle style = wb.createCellStyle();//创建单元格，并设置表头设置表头居中
+            style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
+            HSSFCell cell = row.createCell(0);
+            cell.setCellValue("学号");
+            cell.setCellStyle(style);
+            cell = row.createCell(1);
+            cell.setCellValue("姓名");
+            cell.setCellStyle(style);
+            cell = row.createCell(2);
+            cell.setCellValue("年龄");
+            cell.setCellStyle(style);
+            List list = addStudentInfo.exportData();//获取数据并写入excel
+            for (int i = 0;i<list.size();i++) {
+                row = sheet.createRow((int) i + 1);
+                Object object = list.get(i);
+                row.createCell(0).setCellValue(getValueByKey(object, "name").toString());
+                row.createCell(1).setCellValue(getValueByKey(object, "old").toString());
+                row.createCell(2).setCellValue(getValueByKey(object, "sex").toString());
+            }
+        try {
+
+//        FileOutputStream fileOutputStream = new FileOutputStream("E:/a.xls");
+//        wb.write(fileOutputStream);
+//        fileOutputStream.close();
         }catch (Exception ex){
             System.out.println(ex);
-        }finally {
-            if (out!=null){
-                out.close();
-            }
         }
         return null;
     }
