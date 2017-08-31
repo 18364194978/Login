@@ -15,6 +15,10 @@ import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
@@ -189,19 +193,15 @@ public class AddStudentInfoAction {
     }
     public String exportData() throws IOException {
         HttpServletResponse response =ServletActionContext.getResponse();
-        PrintWriter out = null;
+        response.setContentType("application/msexcel;charset=UTF-8");
+        OutputStream outputStream = response.getOutputStream();
         response.setHeader("Content-Disposition", "attachment; filename=aaaaa.xls");
-        OutputStream os= new BufferedOutputStream(response.getOutputStream());
-        response.setContentType("application/vnd.ms-excel;charset=gb2312");
-//        os.write(Buffer);
-        os.flush();
-        os.close();
-            HSSFWorkbook wb = new HSSFWorkbook();//1、创建一个webbook，对应一个Excel文件
-            HSSFSheet sheet = wb.createSheet("表一");//2、在webbook中添加一个sheet，对应Excel文件中的sheet
-            HSSFRow row = sheet.createRow((int)0);//3、在sheet中添加表头第0行，老版本poi对excel的行数有限制short
-            HSSFCellStyle style = wb.createCellStyle();//创建单元格，并设置表头设置表头居中
+            Workbook wb = new HSSFWorkbook();//1、创建一个webbook，对应一个Excel文件
+            Sheet sheet = wb.createSheet("表一");//2、在webbook中添加一个sheet，对应Excel文件中的sheet
+            HSSFCellStyle style = (HSSFCellStyle) wb.createCellStyle();//创建单元格，并设置表头设置表头居中
             style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
-            HSSFCell cell = row.createCell(0);
+            Row row = sheet.createRow(0);//3、在sheet中添加表头第0行，老版本poi对excel的行数有限制short
+            Cell cell = row.createCell(0);
             cell.setCellValue("学号");
             cell.setCellStyle(style);
             cell = row.createCell(1);
@@ -219,10 +219,11 @@ public class AddStudentInfoAction {
                 row.createCell(2).setCellValue(getValueByKey(object, "sex").toString());
             }
         try {
+            wb.write(outputStream);
+            System.out.println("数据写入成功");
+            outputStream.flush();
+            outputStream.close();
 
-//        FileOutputStream fileOutputStream = new FileOutputStream("E:/a.xls");
-//        wb.write(fileOutputStream);
-//        fileOutputStream.close();
         }catch (Exception ex){
             System.out.println(ex);
         }
