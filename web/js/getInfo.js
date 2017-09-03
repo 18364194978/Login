@@ -288,65 +288,60 @@ Ext.onReady(function () {
         });
     }
     function deleteStudent() {
-        Ext.MessageBox.show({
-            title: '提示',
-            msg: '确认要删除学生信息吗？',
-            width: 250,
-            buttons: Ext.MessageBox.YESNO,
-            animEl: Ext.getBody(),
-            icon: Ext.MessageBox.QUESTION,
-            fn: function (btn) {
-                if (btn === 'yes') {
-                    if (grid.getSelectionModel().hasSelection()) {
-                        var records = grid.getSelectionModel().selected.items[0].data.id;
-                        var selectList = [];
-                        grid.getSelectionModel().selected.items.forEach(function (x) {
-                            selectList.push(x.data.id);
-                        });
-                        Ext.Ajax.request({//此处通过ajax将id传回bean删除数据
-                            url: 'deleteStudentInfo.action',
-                            params: {
-                                selectList: selectList
-                            },
-                            success: function (form, action) {
-                                var getGrid = Ext.getCmp('grid');
-                                grid.store.reload();
-                                Ext.Msg.show({
-                                    title: '新增信息',
-                                    msg: '删除成功了o',
-                                    // fn:processResult,
-                                    icon: Ext.Msg.QUESTION,
-                                    buttons: Ext.Msg.YEYESNO
-                                });
-                            },
-                            failure: function (form, action) {
-                                Ext.Msg.show({
-                                    title: '新增信息失败',
-                                    msg: '删除失败了哦',
-                                    // fn:processResult,
-                                    icon: Ext.Msg.QUESTION,
-                                    buttons: Ext.Msg.YEYESNO
-                                });
-                            }
-                        });
-                        // var mycars = new Array();
-                        // for ( var i = 0; i < records.length; i++) {
-                        //     mycars[i] = records[i].data;
-                        // }
-                        // alert(mycars.length);
+        if(!grid.getSelectionModel().hasSelection()){
+            Ext.MessageBox.show({
+                title:'提示',
+                msg:'请选择至少一条数据',
+                width:200,
+                buttons: Ext.MessageBox.YES
+            })
+        }else {
+            Ext.MessageBox.show({
+                title: '提示',
+                msg: '确认要删除学生信息吗？',
+                width: 250,
+                buttons: Ext.MessageBox.YESNO,
+                animEl: Ext.getBody(),
+                icon: Ext.MessageBox.QUESTION,
+                fn: function (btn) {
+                    if (btn === 'yes') {
+                        if (grid.getSelectionModel().hasSelection()) {
+                            var records = grid.getSelectionModel().selected.items[0].data.id;
+                            var selectList = [];
+                            grid.getSelectionModel().selected.items.forEach(function (x) {
+                                selectList.push(x.data.id);
+                            });
+                            Ext.Ajax.request({//此处通过ajax将id传回bean删除数据
+                                url: 'deleteStudentInfo.action',
+                                params: {
+                                    selectList: selectList
+                                },
+                                success: function (form, action) {
+                                    var getGrid = Ext.getCmp('grid');
+                                    grid.store.reload();
+                                    Ext.Msg.show({
+                                        title: '新增信息',
+                                        msg: '删除成功了o',
+                                        // fn:processResult,
+                                        icon: Ext.Msg.QUESTION,
+                                        buttons: Ext.Msg.YEYESNO
+                                    });
+                                },
+                                failure: function (form, action) {
+                                    Ext.Msg.show({
+                                        title: '新增信息失败',
+                                        msg: '删除失败了哦',
+                                        // fn:processResult,
+                                        icon: Ext.Msg.QUESTION,
+                                        buttons: Ext.Msg.YEYESNO
+                                    });
+                                }
+                            });
+                        }
                     }
-                    // Ext.MessageBox.show({
-                    //     title: '请稍等',
-                    //     msg: '正在注销...',
-                    //     width: 300,
-                    //     wait: true,
-                    //     waitConfig: {
-                    //         interval: 50
-                    //     }
-                    // });
                 }
-            }
-        });
+            });
+        }
     }
     var viewPort = Ext.create('Ext.Viewport', {
         layout: "border",
