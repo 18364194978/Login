@@ -136,6 +136,25 @@ Ext.onReady(function () {
             anchor: '99%'
         }]
     });
+    var importExcle = new Ext.FormPanel({
+        name:'excle',
+        id:'excle',
+        frame:true,
+        id:'importExcle',
+        items:[{
+            xtype:'filefield',
+            id:'excleFile',
+            name:'excleFile',
+            fieldLabel:'选择文件',
+            labelWidth:70,
+            allowBlank:'false',
+            anchor:'90%',
+            buttonText:'选择'
+            // listeners:{//此处为校验导入的文件格式
+            //     change:checkExcle()
+            // }
+        }]
+    });
     var store = Ext.create('Ext.data.Store', {
         fields: [{name: 'address'}, {name: 'grade'}, {name: 'gradeclass'}, {name: 'id'}, {name: 'name'}, {name: 'national'}, {name: 'old'}, {name: 'phonenum'}, {name: 'sex'}, {name: 'starttime'}, {name: 'studentnumber'}],
         groupField: 'id',
@@ -242,7 +261,49 @@ Ext.onReady(function () {
                 }
             }]
     });
+    var importExcleWin = new Ext.Window({
+        title:'Excel导入',
+        width:400,
+        id:'importExcleWin',
+        height:150,
+        layout:'fit',
+        modal:true,
+        closble: true,
+        collapsible: true,
+        constrain: true,
+        titleCollapse: true,
+        buttonAlign: 'center',
+        items:[importExcle],
+        buttons:[{
+            text:'确定',
+            minWidth:70,
+            handler:importData()
+        },{
+            text:'取消',
+            minWidth:70,
+            handler:function () {
+                importExcleWin.hide()
+            }
+        }]
+    });
     function console() {
+    }
+    function importData() {
+
+    }
+    function showExclePanel() {
+        importExcleWin.show();
+    }
+    function checkExcle() {
+        var filePath = Ext.getCmp('selectStudent').getComponent('name').getValue();
+        var fileCheck = filePath.substring(filePath.lastIndexOf('.'))
+        if(fileCheck!==".xls"){
+            Ext.Msg.show({
+                title:'警告',
+                msg:'选择的文件必须是xls格式的！',
+                button:'确定'
+            });
+        }
     }
     function exportData() {
         var downloadIframe = document.createElement('iframe');
@@ -380,6 +441,12 @@ Ext.onReady(function () {
                     text:'导出',
                     handler:function () {
                         exportData();
+                    }
+                },{
+                    iconCls:"icon_import",
+                    text:'导入',
+                    handler:function () {
+                        showExclePanel();
                     }
                 }]
             }]
