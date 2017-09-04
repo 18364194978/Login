@@ -138,13 +138,12 @@ Ext.onReady(function () {
     });
     var importExcle = new Ext.FormPanel({
         name:'excle',
-        id:'excle',
         frame:true,
         id:'importExcle',
         items:[{
             xtype:'filefield',
-            id:'excleFile',
-            name:'excleFile',
+            id:'uploadFile',
+            name:'uploadFile',
             fieldLabel:'选择文件',
             labelWidth:70,
             allowBlank:'false',
@@ -277,7 +276,9 @@ Ext.onReady(function () {
         buttons:[{
             text:'确定',
             minWidth:70,
-            handler:importData()
+            handler:function(){
+                importData();
+            }
         },{
             text:'取消',
             minWidth:70,
@@ -289,7 +290,20 @@ Ext.onReady(function () {
     function console() {
     }
     function importData() {
-
+        var excleForm = Ext.getCmp('importExcle').getComponent('uploadFile').getValue();
+        Ext.Ajax.request({//此处通过ajax将id传回bean删除数据
+            url: 'importData.action',
+            params: {
+                excleForm: excleForm
+            },
+            success: function (form, action) {
+                Ext.Msg.show({
+                    title:'提示',
+                    msg:'导入成功',
+                    button:'确定'
+                });
+            }
+        })
     }
     function showExclePanel() {
         importExcleWin.show();

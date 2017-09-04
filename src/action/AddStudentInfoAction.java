@@ -2,12 +2,12 @@ package action;
 
 import service.AddStudentInfoImpl;
 import bean.Student;
-
 import java.lang.reflect.Field;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.spi.http.HttpContext;
 
 import org.apache.struts2.ServletActionContext;
 import net.sf.json.JSONArray;
@@ -50,6 +50,7 @@ public class AddStudentInfoAction {
     private boolean success;
     private String msg = "";
     private List selectList;
+    private Object  excleForm;
 
     public boolean isSuccess() {
         return success;
@@ -69,6 +70,14 @@ public class AddStudentInfoAction {
 
     public List getSelectList() {
         return selectList;
+    }
+
+    public void setExcleForm(String excleForm){
+        this.excleForm = excleForm;
+    }
+
+    public Object getExcleForm(){
+        return excleForm;
     }
 
     public void setMsg(String msg) {
@@ -302,6 +311,11 @@ public class AddStudentInfoAction {
         return null;
     }
 
+    public Object importData(){
+        Object excleFile = getExcleForm();
+        Object a = excleFile;
+        return null;
+    }
     public String getStudentInfo() {
         HttpServletResponse response = ServletActionContext.getResponse();
         PrintWriter out = null;

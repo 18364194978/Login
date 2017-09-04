@@ -32,5 +32,6 @@
         <action name="getTreeInfoByParentId" class="action.GetMenuListAction" method="getTreeInfoByParentId"></action>
         <action name="getTreeRoot" class="action.GetMenuListAction" method="getmenu"></action>
         <action name="exportData" class="action.AddStudentInfoAction" method="exportData"></action>
+        <action name="importData" class="action.AddStudentInfoAction" method="importData"></action>
     </package>
 </struts>
