@@ -139,10 +139,12 @@ Ext.onReady(function () {
     var importExcle = new Ext.FormPanel({
         name:'excle',
         frame:true,
+        fileUpload: true,
+        defaultType: 'textfield',
         id:'importExcle',
         items:[{
-            xtype:'filefield',
             id:'uploadFile',
+            inputType: 'file',
             name:'uploadFile',
             fieldLabel:'选择文件',
             labelWidth:70,

@@ -494,6 +494,15 @@ Ext.onReady(function () {
         });
     }
 
+    function showTime() {
+        var today = new Date();
+        var hh = today.getHours();
+        var mm = today.getMinutes();
+        var ss = today.getSeconds();
+        // return hh+":"+mm+":"+ss;
+        document.getElementById("myclock").innerHTML="<h1>现在是："+hh+":"+mm+":"+ss+"</h1>";
+        var myTime=setTimeout(showTime(),1000);
+    }
     function deleteStudent() {
         Ext.MessageBox.show({
             title: '提示',
@@ -555,7 +564,18 @@ Ext.onReady(function () {
             }
         });
     }
-
+    var aWeek = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    var currentTime = new Ext.Toolbar.TextItem('当前时间：'
+        + new Date() + '&nbsp;&nbsp;'
+        + aWeek[new Date().getDay()]);
+    Ext.TaskMgr.start({
+        run : function() {
+            Ext.fly(currentTime.getEl()).update('当前时间：'
+                + new Date().format('Y-m-d H:i:s') + '  '
+                + aWeek[new Date().getDay()]);
+        },
+        interval : 1000
+    });
     var tab = Ext.create('Ext.TabPanel', {
         region: 'center',
         deferredRender: false,
@@ -575,6 +595,12 @@ Ext.onReady(function () {
                         add_win.show();
                         add_win.setTitle("添加新信息");
                     }
+                },{
+                iconCls:"icon_add",
+                    text:'显示时间',
+                    handler:function () {
+                        showTime();
+                    }
                 }
             ]
         }]
@@ -586,6 +612,7 @@ Ext.onReady(function () {
             region: "north",
             height: 80,
             split: true,
+                bbar:[currentTime],
             margins: '10 10 10 10',
             title: "面板的标题(上部分)",
             items: [
@@ -621,7 +648,7 @@ Ext.onReady(function () {
                             }
                         }]
                     }],
-                    html: '<p>这是一段文字</p>'
+                    html: '<div id="myclock">现在时间是：showTime()</div>'
                 }
             ]
         },
