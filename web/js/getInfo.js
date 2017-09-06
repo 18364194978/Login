@@ -292,12 +292,10 @@ Ext.onReady(function () {
     function console() {
     }
     function importData() {
-        var excleForm = Ext.getCmp('importExcle').getComponent('uploadFile').getValue();
-        Ext.Ajax.request({//此处通过ajax将id传回bean删除数据
+        importExcle.form.submit({//此处通过ajax将id传回bean删除数据
             url: 'importData.action',
-            params: {
-                excleForm: excleForm
-            },
+            method:'post',
+            waitMsg:'正在上传中',
             success: function (form, action) {
                 Ext.Msg.show({
                     title:'提示',

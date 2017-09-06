@@ -50,6 +50,7 @@ public class AddStudentInfoAction {
     private boolean success;
     private String msg = "";
     private List selectList;
+    private File file;
     private Object  excleForm;
 
     public boolean isSuccess() {
@@ -62,6 +63,14 @@ public class AddStudentInfoAction {
 
     public String getMsg() {
         return msg;
+    }
+
+    public void setFile(File file){
+        this.file = file;
+    }
+
+    public File getFile(){
+        return file;
     }
 
     public void setSelectList(List list) {
@@ -311,9 +320,8 @@ public class AddStudentInfoAction {
         return null;
     }
 
-    public Object importData(){
-        Object excleFile = getExcleForm();
-        Object a = excleFile;
+    public String importData(HttpContext context){
+//        HttpFileCollection files = context;
         return null;
     }
     public String getStudentInfo() {

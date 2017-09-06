@@ -496,11 +496,15 @@ Ext.onReady(function () {
 
     function showTime() {
         var today = new Date();
+        var year = today.getFullYear();
+        var month = today.getMonth()+1;
+        var day = today.getDate();
         var hh = today.getHours();
         var mm = today.getMinutes();
         var ss = today.getSeconds();
         // return hh+":"+mm+":"+ss;
-        document.getElementById("myclock").innerHTML="<h1>现在是："+hh+":"+mm+":"+ss+"</h1>";
+        var aWeek = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+        document.getElementById("myclock").innerHTML="<h1>现在时间是："+year+"-"+month+"-"+day+" "+aWeek[today.getDay()]+" "+hh+":"+mm+":"+ss+"</h1>";
         var myTime=setTimeout(showTime(),1000);
     }
     function deleteStudent() {
@@ -564,18 +568,15 @@ Ext.onReady(function () {
             }
         });
     }
-    var aWeek = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-    var currentTime = new Ext.Toolbar.TextItem('当前时间：'
-        + new Date() + '&nbsp;&nbsp;'
-        + aWeek[new Date().getDay()]);
-    Ext.TaskMgr.start({
-        run : function() {
-            Ext.fly(currentTime.getEl()).update('当前时间：'
-                + new Date().format('Y-m-d H:i:s') + '  '
-                + aWeek[new Date().getDay()]);
+
+    // var currentTime = new Ext.Toolbar.TextItem('当前时间：'+ new Date() + '&nbsp;&nbsp;' + aWeek[new Date().getDay()]);
+    var task = {
+        run: function() {
+            showTime()
         },
-        interval : 1000
-    });
+        interval: 500
+    };
+    Ext.TaskManager.start(task);
     var tab = Ext.create('Ext.TabPanel', {
         region: 'center',
         deferredRender: false,
@@ -612,7 +613,7 @@ Ext.onReady(function () {
             region: "north",
             height: 80,
             split: true,
-                bbar:[currentTime],
+                // bbar:[currentTime],
             margins: '10 10 10 10',
             title: "面板的标题(上部分)",
             items: [
